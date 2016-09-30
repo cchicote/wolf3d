@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   manage_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchicote <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,56 @@
 
 #include "../includes/wolf3d.h"
 
-void		env_init(t_env *e)
+void		put_data(t_env *e)
 {
-	map_init(e);
+	e->map[0][0] = '1';
+	e->map[0][1] = '1';
+	e->map[0][2] = '1';
+	e->map[0][3] = '1';
+	e->map[0][4] = '1';
+	e->map[1][0] = '1';
+	e->map[1][4] = '1';
 }
 
-int			main(void)
+char		*flat_map(void)
 {
-	t_env		e;
+	int 	x;
+	char	*tmp;
+	
+	x = -1;
+	tmp = ft_strnew(MAP_X);
+	tmp[MAP_X] = '\0';
+	while (++x != MAP_X)
+		tmp[x] = '0';
+	return (tmp);
+}
 
-	env_init(&e);
-	display_map(&e);
-	return (0);
+
+void		map_init(t_env *e)
+{
+	int x;
+
+	x = -1;
+	e->map = (char**)ft_memalloc(sizeof(char*) * MAP_Y);
+	while (++x != MAP_X)
+		e->map[x] = ft_strdup(flat_map());
+	put_data(e);
+}
+
+void		display_map(t_env *e)
+{
+	int		x;
+	int		y;
+
+	y = -1;
+	while (++y != MAP_Y)
+	{
+		x = -1;
+		while (++x != MAP_X)
+		{
+			ft_putchar(e->map[y][x]);
+			ft_putchar(' ');
+		}
+		ft_putchar('\n');
+	}
 }

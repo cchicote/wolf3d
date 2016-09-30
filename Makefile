@@ -27,6 +27,7 @@ LIBFT = -L ./libft/ -lft
 PATH_SRC = src/
 
 SRC = main.c \
+		manage_map.c \
 
 SRCO = $(patsubst %.c, %.o,$(addprefix $(PATH_SRC), $(SRC)))
 
