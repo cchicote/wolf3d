@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchicote <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/30 11:18:02 by cchicote          #+#    #+#             */
-/*   Updated: 2016/09/30 12:33:43 by cchicote         ###   ########.fr       */
+/*   Created: 2016/10/03 10:53:00 by cchicote          #+#    #+#             */
+/*   Updated: 2016/10/03 10:53:18 by cchicote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf3d.h"
 
-void		env_init(t_env *e)
+void		my_pixel_put(t_env *e, int x, int y, int color)
 {
-	e->mlx = mlx_init();
-	e->win = mlx_new_window(e->mlx, WINX, WINY, "fractol");
-	e->img = mlx_new_image(e->mlx, WINX, WINY);
-	e->data = mlx_get_data_addr(e->img, &(e->bpp),
-		&(e->sl), &(e->endian));
-	map_init(e);
-}
+	unsigned int	biscolor;
 
-int			main(void)
-{
-	t_env		e;
-
-	env_init(&e);
-	display_map(&e);
-	mlx_hook(e.win, KeyPress, KeyPressMask, manage_key, &e);
-	mlx_loop(e.mlx);
-	return (0);
+	biscolor = mlx_get_color_value(e->mlx, color);
+	if (x < WINX && y < WINY && x > 0 && y > 0)
+	{
+		e->data[y * e->sl + x * e->bpp / 8] = (biscolor & 0x0000ff);
+		e->data[y * e->sl + x * e->bpp / 8 + 1] = (biscolor & 0x00ff00) >> 8;
+		e->data[y * e->sl + x * e->bpp / 8 + 2] = (biscolor & 0xff0000) >> 16;
+	}
 }

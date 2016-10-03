@@ -14,13 +14,19 @@
 
 void		put_data(t_env *e)
 {
-	e->map[0][0] = '1';
-	e->map[0][1] = '1';
-	e->map[0][2] = '1';
-	e->map[0][3] = '1';
-	e->map[0][4] = '1';
-	e->map[1][0] = '1';
-	e->map[1][4] = '1';
+	int x;
+	int	y;
+
+	y = -1;
+	while (++y < 2)
+	{
+		x = -1;
+		while (++x < MAPX)
+		{
+			if ((y == 0) || (y == 1 && (x == 0 || x == MAPX - 1)))
+				e->map[y][x] = '1';
+		}
+	}
 }
 
 char		*flat_map(void)
@@ -29,9 +35,9 @@ char		*flat_map(void)
 	char	*tmp;
 	
 	x = -1;
-	tmp = ft_strnew(MAP_X);
-	tmp[MAP_X] = '\0';
-	while (++x != MAP_X)
+	tmp = ft_strnew(MAPX);
+	tmp[MAPX] = '\0';
+	while (++x != MAPX)
 		tmp[x] = '0';
 	return (tmp);
 }
@@ -42,8 +48,8 @@ void		map_init(t_env *e)
 	int x;
 
 	x = -1;
-	e->map = (char**)ft_memalloc(sizeof(char*) * MAP_Y);
-	while (++x != MAP_X)
+	e->map = (char**)ft_memalloc(sizeof(char*) * MAPY);
+	while (++x != MAPX)
 		e->map[x] = ft_strdup(flat_map());
 	put_data(e);
 }
@@ -54,10 +60,10 @@ void		display_map(t_env *e)
 	int		y;
 
 	y = -1;
-	while (++y != MAP_Y)
+	while (++y != MAPY)
 	{
 		x = -1;
-		while (++x != MAP_X)
+		while (++x != MAPX)
 		{
 			ft_putchar(e->map[y][x]);
 			ft_putchar(' ');

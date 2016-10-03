@@ -20,11 +20,20 @@
 # include <math.h>
 # include <mlx.h>
 # include <fcntl.h>
-# define MAP_X 5
-# define MAP_Y 5
+# define MAPX 5
+# define MAPY 5
+# define WINX 200
+# define WINY 200
 
 typedef struct			s_env
 {
+	void				*win;
+	void				*mlx;
+	void				*img;
+	char				*data;
+	int					bpp;
+	int					sl;
+	int					endian;
 	char				**map;
 }						t_env;
 
@@ -44,6 +53,7 @@ typedef	struct			s_param
 */
 
 int						main(void);
+void					env_init(t_env *e);
 
 /*
 ** MANAGE_MAP.C
@@ -53,5 +63,19 @@ void					put_data(t_env *e);
 char					*flat_map(void);
 void					map_init(t_env *e);
 void					display_map(t_env *e);
+
+/*
+** MANAGE_KEY.C
+*/
+
+int						manage_key(int keycode, void *e);
+void					treat_keycode(int keycode, t_env *e);
+
+/*
+** DRAW.C
+*/
+
+void					my_pixel_put(t_env *e, int x, int y, int color);
+
 
 #endif

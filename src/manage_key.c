@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   manage_key.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchicote <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/30 11:18:02 by cchicote          #+#    #+#             */
-/*   Updated: 2016/09/30 12:33:43 by cchicote         ###   ########.fr       */
+/*   Created: 2016/10/03 10:58:45 by cchicote          #+#    #+#             */
+/*   Updated: 2016/10/03 10:58:56 by cchicote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf3d.h"
 
-void		env_init(t_env *e)
+int			manage_key(int keycode, void *e)
 {
-	e->mlx = mlx_init();
-	e->win = mlx_new_window(e->mlx, WINX, WINY, "fractol");
-	e->img = mlx_new_image(e->mlx, WINX, WINY);
-	e->data = mlx_get_data_addr(e->img, &(e->bpp),
-		&(e->sl), &(e->endian));
-	map_init(e);
+	treat_keycode(keycode, e);
+	return (0);
 }
 
-int			main(void)
+void		treat_keycode(int keycode, t_env *e)
 {
-	t_env		e;
-
-	env_init(&e);
-	display_map(&e);
-	mlx_hook(e.win, KeyPress, KeyPressMask, manage_key, &e);
-	mlx_loop(e.mlx);
-	return (0);
+	if (keycode == 53 || keycode == 65307)
+	{
+		mlx_destroy_window(e->mlx, e->win);
+		ft_putendl("goodbye");
+		exit(0);
+	}
 }
