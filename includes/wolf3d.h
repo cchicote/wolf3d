@@ -20,9 +20,9 @@
 # include <math.h>
 # include <mlx.h>
 # include <fcntl.h>
-# define MAPX 5
-# define MAPY 5
-# define WINX 200
+# define MAPX 4
+# define MAPY 3
+# define WINX 320
 # define WINY 200
 
 typedef struct			s_env
@@ -34,17 +34,19 @@ typedef struct			s_env
 	int					bpp;
 	int					sl;
 	int					endian;
-	char				**map;
+	char				map[MAPY][MAPX];
 }						t_env;
 
 typedef	struct			s_param
 {
-	double				cam_h;			// hauteur de la camera
+	double				cam_h;			// hauteur de la camera -> hauteur du joueur
 	double				cam_o;			// orientation de la camera
 	double				fov;			// field of view -> champ de vision
+	double				pov;			// point of view -> viewing angle
 	double				camposx;		// position x de la camera
 	double				camposy;		// position y de la camera
-	double				pss;			// projection screen's size -> taille de l'ecran de projection
+	double				wall_h;			// taille des murs (meme unite de mesure que pour le joueur)
+	double				col;			// colonne
 }						t_param;
 
 
