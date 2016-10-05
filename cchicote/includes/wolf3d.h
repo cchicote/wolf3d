@@ -47,6 +47,10 @@ typedef	struct			s_param
 	double				camposy;		// position y de la camera
 	double				wall_h;			// taille des murs (meme unite de mesure que pour le joueur)
 	double				col;			// colonne
+	int					*wallxs;
+	int					*wallxe;
+	int					*wallys;
+	int					*wallye;			
 }						t_param;
 
 
@@ -56,14 +60,13 @@ typedef	struct			s_param
 
 int						main(void);
 void					env_init(t_env *e);
+void					param_init(t_param *p, t_env *e);
+void					wall_init(t_env *e, t_param *p);
 
 /*
 ** MANAGE_MAP.C
 */
 
-void					put_data(t_env *e);
-char					*flat_map(void);
-void					map_init(t_env *e);
 void					display_map(t_env *e);
 
 /*
