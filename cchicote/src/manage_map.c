@@ -23,7 +23,7 @@ void		display_map(t_env *e)
 		x = -1;
 		while (++x != MAPX)
 		{
-			ft_putchar(e->map[y][x]);
+			ft_putnbr(e->map[y][x]);
 			ft_putchar(' ');
 		}
 		ft_putchar('\n');

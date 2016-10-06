@@ -1,0 +1,32 @@
+Introduction : 
+
+le raycasting est une technique de rendu pour creer une perspective en 3d sur une map en 2d. A l'epoque ou les ordinateurs etaient plus lents, il n'etait pas possible de faire tourner des moteurs 3d en temps reel, et le raycasting etait la premiere solution. Le raycasting peut aller tres vite car un seul calcul ne doit etre fait pour chaque ligne verticale de l'ecran. Le jeu le plus connu ayant utilise cette technique est bien sur Wolfenstein 3d.
+
+Le moteur raycasting de Wolf3d etait tres limite, lui permettant de tourner sur un ordinateur 286 (??) : tous les murs avaient la meme hauteur et etaient des carres sur une grille en 2d.
+
+Les choses comme les escaliers, le saut ou les differences de taille sont impossible a faire avec ce moteur. Plus tard des jeux comme Doom et Duke Nukem 3D ont egalement utilise le raycasting, mais d'une maniere bien plus avancee, et qui permettait de creer des murs ondules, de differentes hauteurs, de rajouter des sols textures, des murs transparents, des plafonds, etc... les sprites (ennemis, objets et recompenses) sont des images 2d, mais ce n'est pas le sujet de ce tuto.
+
+L'idee :
+
+L'idee de base du raycasting est la suivante : la map est une grille en 2d, et chaque carre peut etre egal a 0 (= pas de mur) ou avoir une valeur positive (un mur avec une texture ou une hauteur specifique).
+
+Pour chaque X de la fenetre (c-a-d chaque ligne verticale de la fenetre), on envoie un rayon qui commence a la position du joueur, et avec une direction qui depend de la direction du regard du joueur, et de la coordonnee X dans la fenetre. Ensuite, ce rayon avance sur la map 2d, jusqu'a ce qu'il entre en contact avec un carre de la grille qui est un mur. Si c'est un mur il calcule la distance de ce point au joueur, et utilise cette distance pour connaitre la taille du mur a afficher a l'ecran. De plus, plus le mur est loin, plus il apparaitra petit a l'ecran, et inversement. Ce ne sont que des calculs en 2d. 
+
+Pour trouver le premier mur que va rencontrer le rayon, on commence a la position du joueur, et ensuite on verifie systematiquement si le rayon est dans un mur. Si c'est le cas, alors la boucle s'arrete, calcule la distance, et dessine le mur avec la bonne taille. Si le rayon n'est pas dans un mur, alors on continue de le tracer, en ajoutant une certaine valeur a sa position, dans la direction du rayon (on le fait avancer quoi), et on verifie a nouveau pour sa nouvelle position s'il est dans un mur, jusqu'a ce qu'il entre en contact avec un mur.
+
+Attention, il est parfois impossible de trouver quel case touche le rayon avec une seule formule car un ordinateur ne peut verifier qu'un nombre fini de positions pour le rayon. Plusieurs moteurs en raycasting ajoutent une valeur constante au rayon a chaque etape, malgre le fait qu'il y ait une chance qu'il rate un mur (si cette valeur constante est trop grande).
+Plus on verifie de positions, plus les chances que l'ordinateur ne detecte un mur sont faibles, mais plus il devra faire de calculs. Pour avoir une meilleur precision on peut par exemple diviser par deux la valeur constante qu'on ajoute au rayon. 
+Pour avoir une precision infinie avec cette methode, il faudrait avoir une valeur constante infiniment petite, et par consequent effectuer un tres grand nombre de calculs, ce qui n'est pas envisageable.
+
+Heureusement, il existe une meilleur methode qui ne requiert que tres peu de calculs et qui va detecter chaque mur : l'idee est de verifier chaque cote de la case dans laquelle entre le rayon (sur la map 2D). Par consequent, la valeur autrefois constante sera maintenant une variable, qui sera ajoutee a chaque nouvelle etape au rayon, et qui dependra de la distance qui separe le bord A du carre, au bord B de ce meme carre. 
+
+Il s'agit de la methode "DDA" (ADD en Francais) : Digital Differential Analysis. C'est un algorithme rapide generalement utilise sur des grilles (carrees) pour trouver le carre qu'une ligne touche.
+On peut donc utiliser cette methode pour trouver quelle case de notre map le rayon touche, et arreter l'algorithme une fois qu'une case "mur" est touchee par le rayon.
+
+Certaines techniques de raytracing se servent d'angles euclidiens pour representer la direction du joueur, les rayons, et le FOV avec un autre angle. Cependant, il est plus simple de travailler avec des vecteurs et une camera: la position du joueur est toujours un vecteur (une coordonnee x et y) mais maintenant, on fait egalement de la direction un vecteur.
+Donc la direction est maintenant determinee par deux valeurs : la coordonnee x et y de la direction. Un vecteur de direction peut etre determine ainsi : si on dessine une ligne dans la direction dans laquelle le joueur regarde, a travers la position du joueur, ainsi chaque point de la ligne est la somme de la posiiton du joueur, et un multiple du vecteur de direction. La longueur de ce vecteur de direction n'est pas vraiment importante, seulement sa direction l'est.
+En multipliant x et y par la meme valeur, on change la longueur tout en gardant la meme direction.
+
+Cette methode (de vecteurs) requiert aussi un autre vecteur qui est la droite vectorielle qui part de la camera (POV), sur le plan, et qui doit systematiquement etre perpendiculaire au vecteur de direction. 
+Ce plan de camera represente la surface de la fenetre, tant que le vecteur de direction est perpendiculaire a celui-ci, et pointe a l'interieur de la fenetre. La position du joueur, qui est un point unique, est un point en face du plan de camera. Un certain rayon et une certaine coordonnee x de la fenetre, est par la suite le rayon qui commence a la position du joueur, traverse cette position dans la fenetre, et ainsi, le plan de la camera.
+

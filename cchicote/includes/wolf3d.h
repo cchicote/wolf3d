@@ -20,10 +20,10 @@
 # include <math.h>
 # include <mlx.h>
 # include <fcntl.h>
-# define MAPX 4
-# define MAPY 3
-# define WINX 320
-# define WINY 200
+# define MAPX 24
+# define MAPY 24
+# define WINX 512.0
+# define WINY 384.0
 
 typedef struct			s_env
 {
@@ -34,23 +34,23 @@ typedef struct			s_env
 	int					bpp;
 	int					sl;
 	int					endian;
-	char				map[MAPY][MAPX];
+	int					map[MAPY][MAPX];
 }						t_env;
 
 typedef	struct			s_param
 {
-	double				cam_h;			// hauteur de la camera -> hauteur du joueur
-	double				cam_o;			// orientation de la camera
-	double				fov;			// field of view -> champ de vision
-	double				pov;			// point of view -> viewing angle
-	double				camposx;		// position x de la camera
-	double				camposy;		// position y de la camera
-	double				wall_h;			// taille des murs (meme unite de mesure que pour le joueur)
-	double				col;			// colonne
-	int					*wallxs;
-	int					*wallxe;
-	int					*wallys;
-	int					*wallye;			
+	double				posX;		//position du vecteur du joueur
+	double				posY;		//
+	double				dirX;		// direction du joueur
+	double				dirY;		//
+	double				planeX;		// le plan camera du joueur
+	double				planeY;		//
+	double				fov;		// field of fiew -> champ de vision
+	double				cameraX;
+	double				rayposX;
+	double				rayposY;
+	double				raydirX;
+	double				raydirY;
 }						t_param;
 
 
@@ -60,8 +60,7 @@ typedef	struct			s_param
 
 int						main(void);
 void					env_init(t_env *e);
-void					param_init(t_param *p, t_env *e);
-void					wall_init(t_env *e, t_param *p);
+void					param_init(t_param *p);
 
 /*
 ** MANAGE_MAP.C
