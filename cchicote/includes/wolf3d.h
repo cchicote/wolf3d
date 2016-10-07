@@ -39,18 +39,34 @@ typedef struct			s_env
 
 typedef	struct			s_param
 {
-	double				posX;		//position du vecteur du joueur
-	double				posY;		//
-	double				dirX;		// direction du joueur
-	double				dirY;		//
-	double				planeX;		// le plan camera du joueur
-	double				planeY;		//
-	double				fov;		// field of fiew -> champ de vision
-	double				cameraX;
-	double				rayposX;
-	double				rayposY;
-	double				raydirX;
-	double				raydirY;
+	double				posX;			//position du vecteur du joueur
+	double				posY;				//
+	double				dirX;			// direction du joueur
+	double				dirY;				//
+	double				planeX;			// le plan camera du joueur
+	double				planeY;				//
+	double				fov;			// field of fiew -> champ de vision
+	// pour calculer le position et la direction du rayon
+	double				cameraX;		// coordonnee X de la camera dans l'espace
+	double				rayposX;		// position du rayon
+	double				rayposY;			//
+	double				raydirX;		// direction du rayon
+	double				raydirY;			//
+	int					mapX;			// dans quel carreau de la map est-on ?
+	int					mapY;				//
+	double				sidedistX;		// la longueur du rayon, de notre position jusqu'au prochain point x ou y
+	double				sidedistY;			//
+	double				deltadistX;		// la longueur du rayon, d'un point x (ou y) au x (ou y) suivant
+	double				deltadistY;			//
+	double				perpwalldist;		//
+	int					stepX;			// dans quelle direction avancer (1 ou -1)
+	int					stepY;				//
+	int					hit;			// est-ce qu'un mur a ete touche ?
+	int					side;			// Etait-ce au Nord/Sud ou a l'Est/Ouest ?
+	int					lineheight;		// hauteur de la ligne a dessiner sur l'ecran
+	int					drawstart;		// premier pixel a dessiner -> le plus bas et le plus haut pixel a dessiner sur la meme bande
+	int					drawend;		// dernier pixel a dessiner
+	int					color;
 }						t_param;
 
 
