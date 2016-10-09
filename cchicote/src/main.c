@@ -34,8 +34,8 @@ void		env_init(t_env *e)
   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,4,0,0,0,0,4,0,3,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,4,4,4,4,4,4,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
@@ -77,7 +77,7 @@ void		DDA(t_env *e, t_param *p)
 		}
 		if (e->map[p->mapX][p->mapY] > 0)
 		{
-			printf("%d\n", p->side);
+			// printf("%d\n", p->side);
 			p->hit = 1;
 		}
 	}
@@ -86,15 +86,30 @@ void		DDA(t_env *e, t_param *p)
 void		choose_color(t_env *e, t_param *p)
 {
 	if (e->map[p->mapX][p->mapY] == 1)
+	{
+		// ft_putnbrendl(p->mapY);
 		p->color = 0xff0000;
+	}
 	else if (e->map[p->mapX][p->mapY] == 2)
+	{
+		// ft_putnbrendl(p->mapY);		
 		p->color = 0x00ff00;
+	}
 	else if (e->map[p->mapX][p->mapY] == 3)
+	{
+		// ft_putnbrendl(p->mapY);		
 		p->color = 0x0000ff;
+	}
 	else if (e->map[p->mapX][p->mapY] == 4)
+	{
+		// ft_putnbrendl(p->mapY);		
 		p->color = 0xffffff;
+	}
 	else
+	{
+		// ft_putnbrendl(p->mapY);
 		p->color = 0xff00ff;
+	}
 }
 
 // verLine(x, p->drawstart, p->drawend, p->color);
@@ -106,12 +121,12 @@ void		draw_vertical(t_env *e, t_param *p)
 
 	start = p->drawstart;
 	end = p->drawend;
-	printf("start : %d, end : %d\n", p->drawstart, p->drawend);
+	// printf("start : %d, end : %d\n", p->drawstart, p->drawend);
 	if (start > end && end > -1000)
 	{
 		while (start > end)
 		{
-			my_pixel_put(e, start, start, p->color);
+			my_pixel_put(e, start, 64, p->color);
 			start--;
 		}
 	}
@@ -119,12 +134,12 @@ void		draw_vertical(t_env *e, t_param *p)
 	{
 		while (start < end)
 		{
-			my_pixel_put(e, start, start, p->color);
+			my_pixel_put(e, start, 64, p->color);
 			start++;
 		}
 	}
 	else
-		my_pixel_put(e, start, start, p->color);	
+		my_pixel_put(e, start, 64, p->color);	
 }
 
 
@@ -134,12 +149,14 @@ int			test(t_env *e, t_param *p)
 	
 	x = -1;
 	display_map(e);
+	p->rayposX = p->posX;
+	p->rayposY = p->posY;
+	p->mapX = (int)p->rayposX;
+	p->mapY = (int)p->rayposY;
+	ft_putnbrendl(p->mapX);
+	ft_putnbrendl(p->mapY);
 	while (++x < WINX)
 	{
-		p->rayposX = p->posX;
-		p->rayposY = p->posY;
-		p->mapX = (int)p->rayposX;
-		p->mapY = (int)p->rayposY;
 		p->cameraX = 2 * x / WINX - 1;
 		p->raydirX = p->dirX + p->planeX * p->cameraX;
 		p->raydirY = p->dirY + p->planeY * p->cameraX;
