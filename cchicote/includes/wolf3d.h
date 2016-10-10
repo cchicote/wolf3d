@@ -39,34 +39,10 @@ typedef struct			s_env
 
 typedef	struct			s_param
 {
-	double				posX;			//position du vecteur du joueur
-	double				posY;				//
-	double				dirX;			// direction du joueur
-	double				dirY;				//
-	double				planeX;			// le plan camera du joueur
-	double				planeY;				//
-	double				fov;			// field of fiew -> champ de vision
-	// pour calculer le position et la direction du rayon
-	double				cameraX;		// coordonnee X de la camera dans l'espace
-	double				rayposX;		// position du rayon
-	double				rayposY;			//
-	double				raydirX;		// direction du rayon
-	double				raydirY;			//
-	int					mapX;			// dans quel carreau de la map est-on ?
-	int					mapY;				//
-	double				sidedistX;		// la longueur du rayon, de notre position jusqu'au prochain point x ou y
-	double				sidedistY;			//
-	double				deltadistX;		// la longueur du rayon, d'un point x (ou y) au x (ou y) suivant
-	double				deltadistY;			//
-	double				perpwalldist;		//
-	int					stepX;			// dans quelle direction avancer (1 ou -1)
-	int					stepY;				//
-	int					hit;			// est-ce qu'un mur a ete touche ?
-	int					side;			// Etait-ce au Nord/Sud ou a l'Est/Ouest ?
-	int					lineheight;		// hauteur de la ligne a dessiner sur l'ecran
-	int					drawstart;		// premier pixel a dessiner -> le plus bas et le plus haut pixel a dessiner sur la meme bande
-	int					drawend;		// dernier pixel a dessiner
-	int					color;
+	double				posX;			//position du joueur (de la camera)
+	double				posY;			//
+	double				alpha;	// orientation du joueur (de la camera);
+	
 }						t_param;
 
 typedef	struct			s_all
@@ -91,17 +67,15 @@ int						test(t_env *e, t_param *p);
 ** MANAGE_MAP.C
 */
 
-void					display_map(t_env *e, int mx, int my);
+void					display_map(t_all *a);
+
 
 /*
 ** MANAGE_KEY.C
 */
 
-int						manage_key(int keycode, void *e);
-void					treat_keycode(int keycode, t_env *e);
-int						manage_key2(int keycode, void *a);
-void					treat_keycode2(int keycode, t_all *a);
-
+int						manage_key(int keycode, void *a);
+void					treat_keycode(int keycode, t_all *a);
 
 /*
 ** DRAW.C

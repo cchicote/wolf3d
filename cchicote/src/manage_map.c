@@ -12,7 +12,7 @@
 
 #include "../includes/wolf3d.h"
 
-void		display_map(t_env *e, int mx, int my)
+void		display_map(t_all *a)
 {
 	int		x;
 	int		y;
@@ -23,27 +23,27 @@ void		display_map(t_env *e, int mx, int my)
 		x = -1;
 		while (++x != MAPX)
 		{
-			if (x == mx && y == my)
+			if (x == a->para->posX && y == a->para->posY)
 			{
 				ft_putstr("\033[32m");
-				ft_putnbr(e->map[y][x]);
+				ft_putnbr(a->envi->map[y][x]);
 				ft_putstr("\033[0;0m");
 			}
-			else if (e->map[y][x] == 1)
+			else if (a->envi->map[y][x] == 1)
 			{
 				ft_putstr("\033[31m");
-				ft_putnbr(e->map[y][x]);
+				ft_putnbr(a->envi->map[y][x]);
 				ft_putstr("\033[0;0m");
 			}
-			else if (e->map[y][x] > 1)
+			else if (a->envi->map[y][x] > 1)
 			{
 				ft_putstr("\033[33m");
-				ft_putnbr(e->map[y][x]);
+				ft_putnbr(a->envi->map[y][x]);
 				ft_putstr("\033[0;0m");
 			}
 			else
-				ft_putnbr(e->map[y][x]);
-			ft_putstr("  ");
+				ft_putnbr(a->envi->map[y][x]);
+			ft_putstr(" ");
 		}
 		ft_putchar('\n');
 	}
