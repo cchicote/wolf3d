@@ -69,6 +69,13 @@ typedef	struct			s_param
 	int					color;
 }						t_param;
 
+typedef	struct			s_all
+{
+	t_param				*para;
+	t_env				*envi;
+}						t_all;
+
+
 
 /*
 ** MAIN.C
@@ -77,12 +84,14 @@ typedef	struct			s_param
 int						main(void);
 void					env_init(t_env *e);
 void					param_init(t_param *p);
+int						test(t_env *e, t_param *p);
+
 
 /*
 ** MANAGE_MAP.C
 */
 
-void					display_map(t_env *e);
+void					display_map(t_env *e, int mx, int my);
 
 /*
 ** MANAGE_KEY.C
@@ -90,6 +99,9 @@ void					display_map(t_env *e);
 
 int						manage_key(int keycode, void *e);
 void					treat_keycode(int keycode, t_env *e);
+int						manage_key2(int keycode, void *a);
+void					treat_keycode2(int keycode, t_all *a);
+
 
 /*
 ** DRAW.C

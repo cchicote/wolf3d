@@ -50,8 +50,8 @@ void		env_init(t_env *e)
 void		param_init(t_param *p)
 {
 	p->fov = 2 * atan(0.66 / 1.0);
-	p->posX = 22;
-	p->posY = 12;
+	p->posX = 1;
+	p->posY = 1;
 	p->dirX = -1;
 	p->dirY = 0;
 	p->planeX = 0;
@@ -103,12 +103,12 @@ void		choose_color(t_env *e, t_param *p)
 	else if (e->map[p->mapX][p->mapY] == 4)
 	{
 		// ft_putnbrendl(p->mapY);		
-		p->color = 0xffffff;
+		p->color = 0xFF1493; // rose / violet
 	}
 	else
 	{
 		// ft_putnbrendl(p->mapY);
-		p->color = 0xff00ff;
+		p->color = 0x7CFC00; // vert / jaune fluo
 	}
 }
 
@@ -126,7 +126,7 @@ void		draw_vertical(t_env *e, t_param *p)
 	{
 		while (start > end)
 		{
-			my_pixel_put(e, start, 64, p->color);
+			my_pixel_put(e, 64, start, p->color);
 			start--;
 		}
 	}
@@ -134,12 +134,12 @@ void		draw_vertical(t_env *e, t_param *p)
 	{
 		while (start < end)
 		{
-			my_pixel_put(e, start, 64, p->color);
+			my_pixel_put(e, 64, start, p->color);
 			start++;
 		}
 	}
 	else
-		my_pixel_put(e, start, 64, p->color);	
+		my_pixel_put(e, 64, start, p->color);	
 }
 
 
@@ -148,13 +148,11 @@ int			test(t_env *e, t_param *p)
 	int x;
 	
 	x = -1;
-	display_map(e);
 	p->rayposX = p->posX;
 	p->rayposY = p->posY;
 	p->mapX = (int)p->rayposX;
 	p->mapY = (int)p->rayposY;
-	ft_putnbrendl(p->mapX);
-	ft_putnbrendl(p->mapY);
+	// display_map(e, p->mapX, p->mapY);
 	while (++x < WINX)
 	{
 		p->cameraX = 2 * x / WINX - 1;
@@ -195,26 +193,28 @@ int			test(t_env *e, t_param *p)
 		if (p->drawend >= WINY)
 			p->drawend = WINY - 1;
 		choose_color(e, p);
-		if (p->side == 1)
-			p->color /= 2;
+		// if (p->side == 1)
+		// 	p->color /= 2;
 		draw_vertical(e, p);
 	}
+	display_map(e, p->posX, p->posY);
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 	return (0);
 }
-
-
-
 
 int			main(void)
 {
 	t_env		e;
 	t_param		p;
+	t_all		a;
 
 	env_init(&e);
 	param_init(&p);
+	a.envi = &e;
+	a.para = &p;
 	test(&e, &p);
-	mlx_hook(e.win, KeyPress, KeyPressMask, manage_key, &e);
+	mlx_key_hook(e.win, manage_key, &e);
+	mlx_hook(e.win, KeyPress, KeyPressMask, manage_key2, &a);
 	mlx_loop(e.mlx);
 	return (0);
 }
