@@ -49,11 +49,7 @@ void		treat_keycode(int keycode, t_all *a)
 		else
 			a->pa->angle--;
 	}
-	else if (keycode == 36)
-	{
-		ft_bzero(a->en->data, a->en->sl * WINY);
-		mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
-	}
+	mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
 	calc_dda(a);
 	display_map(a);
 }

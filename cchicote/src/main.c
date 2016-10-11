@@ -86,7 +86,7 @@ int		       	main(void)
 	a.en = &e;
 	a.pa = &p;
 	display_map(&a);
-  loading_screen(&a);
+  // loading_screen(&a);
 	mlx_hook(e.win, KeyPress, KeyPressMask, manage_key, &a);
 	mlx_loop(e.mlx);
 	return (0);
