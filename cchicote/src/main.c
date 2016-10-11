@@ -12,7 +12,7 @@
 
 #include "../includes/wolf3d.h"
 
-void		env_init(t_env *e)
+void          env_init(t_env *e)
 {
 	int		tmp[MAPX][MAPY] ={
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -47,25 +47,46 @@ void		env_init(t_env *e)
 	ft_memcpy(e->map, tmp, sizeof(tmp));
 }
 
-void		param_init(t_param *p)
+void          param_init(t_param *p)
 {
-	p->posX = 12;
-	p->posY = 12;
-	p->alpha = WINY / 60;
+	p->posx = 11;
+	p->posy = 11;
+  p->angle = 60;
 }
 
-int			main(void)
+void          loading_screen(t_all *a)
 {
-	t_env		e;
+  int x;
+  int y;
+
+  y = -1;
+  while (++y < WINY)
+  {
+    x = -1;
+    while (++x < WINX)
+    {
+      if (x % 3 == 0)
+        my_pixel_put(a->en, x, y, 0xff4500);
+      else
+        my_pixel_put(a->en, x, y, 0x663399);
+    }
+  }
+  mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
+  mlx_string_put(a->en->mlx, a->en->win, WINX / 2 - 60, WINY / 2 - 25, 0xffffff, "PRESS ENTER");
+}
+
+int		       	main(void)
+{
+	t_env		  e;
 	t_param		p;
-	t_all		a;
+	t_all		  a;
 
 	env_init(&e);
 	param_init(&p);
-	a.envi = &e;
-	a.para = &p;
+	a.en = &e;
+	a.pa = &p;
 	display_map(&a);
-	ft_putnbrendl(p.alpha);
+  loading_screen(&a);
 	mlx_hook(e.win, KeyPress, KeyPressMask, manage_key, &a);
 	mlx_loop(e.mlx);
 	return (0);

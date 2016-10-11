@@ -23,26 +23,32 @@ void		display_map(t_all *a)
 		x = -1;
 		while (++x != MAPX)
 		{
-			if (x == a->para->posX && y == a->para->posY)
+			if (x == a->pa->xonmap && y == a->pa->yonmap)
+			{
+				ft_putstr("\033[35m");
+				ft_putnbr(a->en->map[y][x]);
+				ft_putstr("\033[0;0m");
+			}
+			else if (x == (int)a->pa->posx && y == (int)a->pa->posy)
 			{
 				ft_putstr("\033[32m");
-				ft_putnbr(a->envi->map[y][x]);
+				ft_putnbr(a->en->map[y][x]);
 				ft_putstr("\033[0;0m");
 			}
-			else if (a->envi->map[y][x] == 1)
+			else if (a->en->map[y][x] == 1)
 			{
 				ft_putstr("\033[31m");
-				ft_putnbr(a->envi->map[y][x]);
+				ft_putnbr(a->en->map[y][x]);
 				ft_putstr("\033[0;0m");
 			}
-			else if (a->envi->map[y][x] > 1)
+			else if (a->en->map[y][x] > 1)
 			{
 				ft_putstr("\033[33m");
-				ft_putnbr(a->envi->map[y][x]);
+				ft_putnbr(a->en->map[y][x]);
 				ft_putstr("\033[0;0m");
 			}
 			else
-				ft_putnbr(a->envi->map[y][x]);
+				ft_putnbr(a->en->map[y][x]);
 			ft_putstr(" ");
 		}
 		ft_putchar('\n');

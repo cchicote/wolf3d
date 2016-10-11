@@ -22,8 +22,8 @@
 # include <fcntl.h>
 # define MAPX 24
 # define MAPY 24
-# define WINX 512.0
-# define WINY 384.0
+# define WINX 640.0
+# define WINY 380.0
 
 typedef struct			s_env
 {
@@ -39,16 +39,28 @@ typedef struct			s_env
 
 typedef	struct			s_param
 {
-	double				posX;			//position du joueur (de la camera)
-	double				posY;			//
-	double				alpha;	// orientation du joueur (de la camera);
-	
+	double				posx;			//position du joueur (de la camera)
+	double				posy;			//
+	double				alpha;			// orientation du joueur (de la camera) en radian (c'est l'angle transforme en radian)
+	double				angle;			// en degres
+	double				m;				// slope -> pente
+	double				b;				// intersection sur l'axe y
+	double				xcol;
+	int					xonmap;
+	int					yonmap;
 }						t_param;
+
+typedef	struct			s_res
+{
+	double				x;
+	double				y;
+	double				dist;
+}						t_res;
 
 typedef	struct			s_all
 {
-	t_param				*para;
-	t_env				*envi;
+	t_param				*pa;
+	t_env				*en;
 }						t_all;
 
 
@@ -60,7 +72,7 @@ typedef	struct			s_all
 int						main(void);
 void					env_init(t_env *e);
 void					param_init(t_param *p);
-int						test(t_env *e, t_param *p);
+void  			        loading_screen(t_all *a);
 
 
 /*
@@ -82,6 +94,10 @@ void					treat_keycode(int keycode, t_all *a);
 */
 
 void					my_pixel_put(t_env *e, int x, int y, int color);
+t_res					ddax(t_all *a);
+t_res					dday(t_all *a);
+void					calc_dda(t_all *a);
+double					sq(double a);
 
 
 #endif
