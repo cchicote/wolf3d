@@ -27,24 +27,24 @@ void		treat_keycode(int keycode, t_all *a)
 		ft_putendl("goodbye");
 		exit(0);
 	}
-	// if (keycode == 126 && a->en->map[(int)a->pa->posy - 1][(int)a->pa->posx] == 0)
-	// 	a->pa->posy -= 0.3;
-	// else if (keycode == 125 && a->en->map[(int)a->pa->posy + 1][(int)a->pa->posx] == 0)
-	// 	a->pa->posy += 0.3;
-	// else if (keycode == 124 && a->en->map[(int)a->pa->posy][(int)a->pa->posx + 1] == 0)
-	// 	a->pa->posx += 0.3;
-	// else if (keycode == 123 && a->en->map[(int)a->pa->posy][(int)a->pa->posx - 1] == 0)
-	// 	a->pa->posx -= 0.3;
-	if (keycode == 124 && a->pa->angle < 360)
+	if ((keycode == 126 || keycode == 65362) && a->en->map[(int)a->pa->posy - 1][(int)a->pa->posx] == 0)
+		a->pa->posy -= 0.3;
+	else if ((keycode == 125 || keycode == 65364) && a->en->map[(int)a->pa->posy + 1][(int)a->pa->posx] == 0)
+		a->pa->posy += 0.3;
+	else if ((keycode == 124 || keycode == 65363) && a->en->map[(int)a->pa->posy][(int)a->pa->posx + 1] == 0)
+		a->pa->posx += 0.3;
+	else if ((keycode == 123 || keycode == 65361) && a->en->map[(int)a->pa->posy][(int)a->pa->posx - 1] == 0)
+		a->pa->posx -= 0.3;
+	if ((keycode == 124 || keycode == 97) && a->pa->angle < 360)
 	{
-		if (a->pa->angle == 359)
+		if ((int)a->pa->angle == 359)
 			a->pa->angle = 0;
 		else
 			a->pa->angle++;
 	}
-	else if (keycode == 123 && a->pa->angle >= 0)
+	else if ((keycode == 123 || keycode == 100) && a->pa->angle >= 0)
 	{
-		if (a->pa->angle == 0)
+		if ((int)a->pa->angle == 0)
 			a->pa->angle = 359;
 		else
 			a->pa->angle--;

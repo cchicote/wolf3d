@@ -87,6 +87,8 @@ int		       	main(void)
 	a.pa = &p;
 	display_map(&a);
   // loading_screen(&a);
+  calc_dda(&a);
+  mlx_put_image_to_window(e.mlx, e.win, e.img, 0, 0);
 	mlx_hook(e.win, KeyPress, KeyPressMask, manage_key, &a);
 	mlx_loop(e.mlx);
 	return (0);

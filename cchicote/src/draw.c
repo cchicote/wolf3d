@@ -53,12 +53,17 @@ int				choose_color(t_all *a)
 void			print_col(t_all *a, double dist, int c)
 {
 	int			y;
+	int			h_h;
+	int			h_b;
 
+	// printf("%d\n", (int)dist);
 	y = WINY / 2 - 1;
-	while (y++ < WINY / 2 + dist)
+	h_b = (WINY / 2 + dist);
+	h_h = (WINY / 2 - dist);
+	while (y++ < h_b)
 		my_pixel_put(a->en, c, y, choose_color(a));
 	y = WINY / 2 + 1;
-	while (y-- > WINY / 2 - dist)
+	while (y-- > h_h)
 		my_pixel_put(a->en, c, y, choose_color(a));
 }
 
@@ -66,18 +71,21 @@ void			calc_dda(t_all *a)
 {
 	t_res		ret_x;
 	t_res		ret_y;
-	int			step;
+	// int			step;
 	int			c;
 
 	ft_bzero(a->en->data, a->en->sl * WINY);
-	a->pa->alpha = a->pa->angle * (M_PI / 180);
-	a->pa->m = tan(a->pa->alpha);
-	a->pa->b = a->pa->posy - (a->pa->m) * (a->pa->posx);
-	c = 0;
-	step = 60 / WINX;
-	while (c < WINX)
-	{
-		a->pa->alpha += step;
+	c = WINX / 2;
+	// step = WINX / 60;
+	if (a->pa->angle == 0 || a->pa->angle == 90 || a->pa->angle == 180 || a->pa->angle == 270)
+		a->pa->alpha = (a->pa->angle + 0.1) * (M_PI / 180);
+	else
+		a->pa->alpha = a->pa->angle * (M_PI / 180);
+	// while (c < WINX)
+	// {
+		// a->pa->alpha += step;
+		a->pa->m = tan(a->pa->alpha);
+		a->pa->b = a->pa->posy - (a->pa->m) * (a->pa->posx);
 		ret_x = ddax(a);
 		ret_y = dday(a);
 		printf("m : %f\n", a->pa->m);
@@ -91,7 +99,7 @@ void			calc_dda(t_all *a)
 		a->pa->yonmap = ret_x.dist < ret_y.dist ? (int)ret_x.y : (int)ret_y.y;
 		print_col(a, ret_x.dist < ret_y.dist ? ret_x.dist : ret_y.dist, c);
 		c++;
-	}
+	// }
 }
 
 t_res			ddax(t_all *a)
@@ -139,7 +147,7 @@ t_res			dday(t_all *a)
 		if (a->pa->angle >= 0 && a->pa->angle <= 180)
 			x++;
 		else
-			x--;
+			x--;	
 		y = a->pa->m * x + a->pa->b;
 	}
 	ret.x = x;
