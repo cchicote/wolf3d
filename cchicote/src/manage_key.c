@@ -20,7 +20,7 @@ int			manage_key(int keycode, void *a)
 
 void		treat_keycode(int keycode, t_all *a)
 {
-	// ft_putnbrendl(keycode);
+	ft_putnbrendl(keycode);
 	if (keycode == 53 || keycode == 65307)
 	{
 		mlx_destroy_window(a->en->mlx, a->en->win);
@@ -35,14 +35,14 @@ void		treat_keycode(int keycode, t_all *a)
 		a->pa->posx += 0.3;
 	else if ((keycode == 123 || keycode == 65361) && a->en->map[(int)a->pa->posy][(int)a->pa->posx - 1] == 0)
 		a->pa->posx -= 0.3;
-	if ((keycode == 124 || keycode == 97) && a->pa->angle < 360)
+	if ((keycode == 0 || keycode == 97) && a->pa->angle < 360)
 	{
 		if ((int)a->pa->angle == 359)
 			a->pa->angle = 0;
 		else
 			a->pa->angle++;
 	}
-	else if ((keycode == 123 || keycode == 100) && a->pa->angle >= 0)
+	else if ((keycode == 2 || keycode == 100) && a->pa->angle >= 0)
 	{
 		if ((int)a->pa->angle == 0)
 			a->pa->angle = 359;
