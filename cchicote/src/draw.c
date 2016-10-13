@@ -53,12 +53,14 @@ int				choose_color(t_all *a)
 void			print_col(t_all *a, double dist, int c)
 {
 	int			y;
+	int			to_draw;
 
+	to_draw = 100 - (int)dist;
 	y = WINY / 2 - 1;
-	while (y++ < WINY / 2 + dist)
+	while (y++ < WINY / 2 + to_draw)
 		my_pixel_put(a->en, c, y, choose_color(a));
 	y = WINY / 2 + 1;
-	while (y-- > WINY / 2 - dist)
+	while (y-- > WINY / 2 - to_draw)
 		my_pixel_put(a->en, c, y, choose_color(a));
 }
 
@@ -66,32 +68,32 @@ void			calc_dda(t_all *a)
 {
 	t_res		ret_x;
 	t_res		ret_y;
-	// int			step;
-	int			c;
+	double		step;
+	double		c;
 
 	ft_bzero(a->en->data, a->en->sl * WINY);
 	a->pa->alpha = a->pa->angle * (M_PI / 180);
 	a->pa->m = tan(a->pa->alpha);
 	a->pa->b = a->pa->posy - (a->pa->m) * (a->pa->posx);
-	c = WINX / 2;
-	// step = 60 / WINX;
-	// while (c < WINX)
-	// {
-		// a->pa->alpha += step;
+	c = 0;
+	step = 60 / WINX;
+	printf("%f\n", step);
+	while (c < WINX)
+	{
 		ret_x = ddax(a);
 		ret_y = dday(a);
-		printf("m : %f\n", a->pa->m);
-		printf("angle : %f\n", a->pa->angle);
-		printf("alpha : %f\n", a->pa->alpha);
-		printf("ret_x : %f / %f\n", ret_x.x, ret_x.y);
-		printf("ret_y : %f / %f\n", ret_y.x, ret_y.y);
-		printf("dist_retx : %f\n", ret_x.dist);
-		printf("dist_rety : %f\n", ret_y.dist);
+		// printf("m : %f\n", a->pa->m);
+		// printf("angle : %f\n", a->pa->angle);
+		// printf("alpha : %f\n", a->pa->alpha);
+		// printf("ret_x : %f / %f\n", ret_x.x, ret_x.y);
+		// printf("ret_y : %f / %f\n", ret_y.x, ret_y.y);
+		// printf("dist_retx : %f\n", ret_x.dist);
+		// printf("dist_rety : %f\n", ret_y.dist);
 		a->pa->xonmap = ret_x.dist < ret_y.dist ? (int)ret_x.x : (int)ret_y.x;
 		a->pa->yonmap = ret_x.dist < ret_y.dist ? (int)ret_x.y : (int)ret_y.y;
 		print_col(a, ret_x.dist < ret_y.dist ? ret_x.dist : ret_y.dist, c);
-		// c++;
-	// }
+		c += step;
+	}
 }
 
 t_res			ddax(t_all *a)
@@ -117,6 +119,7 @@ t_res			ddax(t_all *a)
 	}
 	ret.x = x;
 	ret.y = y;
+	// ret.dist = fabs(a->pa->posx - x) / cos(a->pa->alpha);
 	ret.dist = sqrt(sq(x - a->pa->posx) + sq(y - a->pa->posy));
 	return(ret);
 	// printf("x : %f // y : %f\n", x, y);
@@ -144,6 +147,7 @@ t_res			dday(t_all *a)
 	}
 	ret.x = x;
 	ret.y = y;
+	// ret.dist = fabs(a->pa->posy - y) / cos(a->pa->alpha);
 	ret.dist = sqrt(sq(x - a->pa->posx) + sq(y - a->pa->posy));
 	return (ret);
 	// printf("x : %f // y : %f\n", x, y);

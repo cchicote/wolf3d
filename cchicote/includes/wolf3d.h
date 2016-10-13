@@ -24,6 +24,7 @@
 # define MAPY 24
 # define WINX 640.0
 # define WINY 380.0
+# define SIZE 64.0
 
 typedef struct			s_env
 {
@@ -48,6 +49,10 @@ typedef	struct			s_param
 	double				xcol;
 	int					xonmap;
 	int					yonmap;
+	int					pl_size;
+	int					fov;
+	double				dpp;
+	double				wall_h;
 }						t_param;
 
 typedef	struct			s_res

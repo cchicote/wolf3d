@@ -20,7 +20,7 @@ int			manage_key(int keycode, void *a)
 
 void		treat_keycode(int keycode, t_all *a)
 {
-	ft_putnbrendl(keycode);
+	// ft_putnbrendl(keycode);
 	if (keycode == 53 || keycode == 65307)
 	{
 		mlx_destroy_window(a->en->mlx, a->en->win);
@@ -51,5 +51,5 @@ void		treat_keycode(int keycode, t_all *a)
 	}
 	mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
 	calc_dda(a);
-	display_map(a);
+	// display_map(a);
 }

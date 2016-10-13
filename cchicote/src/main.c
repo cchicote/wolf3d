@@ -52,6 +52,10 @@ void          param_init(t_param *p)
 	p->posx = 11;
 	p->posy = 11;
   p->angle = 60;
+  p->pl_size = (int)SIZE / 2;
+  p->fov = 60;
+  p->dpp = (WINX / 2) / tan((p->fov * (M_PI / 180)) / 2);
+  // printf("%f\n", p->dpp);
 }
 
 void          loading_screen(t_all *a)
@@ -85,7 +89,7 @@ int		       	main(void)
 	param_init(&p);
 	a.en = &e;
 	a.pa = &p;
-	display_map(&a);
+	// display_map(&a);
   // loading_screen(&a);
   calc_dda(&a);
   mlx_put_image_to_window(e.mlx, e.win, e.img, 0, 0);
