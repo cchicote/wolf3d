@@ -42,17 +42,46 @@ typedef	struct			s_param
 {
 	double				posx;			//position du joueur (de la camera)
 	double				posy;			//
-	double				alpha;			// orientation du joueur (de la camera) en radian (c'est l'angle transforme en radian)
-	double				angle;			// en degres
-	double				m;				// slope -> pente
-	double				b;				// intersection sur l'axe y
-	double				xcol;
-	int					xonmap;
-	int					yonmap;
-	int					pl_size;
-	int					fov;
-	double				dpp;
-	double				wall_h;
+	double				dirx;
+	double				diry;
+	double				planex;
+	double				planey;
+	double				camerax;
+	double				cameray;
+	double				rayposx;
+	double				rayposy;
+	double				raydirx;
+	double				raydiry;
+	int					mapx;
+	int					mapy;
+	double				sidedistx;
+	double				sidedisty;
+	double				deltadistx;
+	double				deltadisty;
+	double				perpwalldist;
+	int					stepx;
+	int					stepy;
+	int					hit;
+	int					side;
+	int					lineheight;
+	int					drawstart;
+	int					drawend;
+	// double				angle_from_base;			// orientation du joueur en degres	
+	// double				alpha_from_base;			// orientation du joueur (de la camera) en radian (c'est l'angle transforme en radian)
+	// double				m;				// slope -> pente
+	// double				b;				// intersection sur l'axe y
+	// double				xcol;
+	// int					xonmap;
+	// int					yonmap;
+	// int					pl_size;
+	// double				fov;			// champ de vision en degres
+	// double				fovrad;			// champ de vision en radian
+	// double				dps;			// distance projection screen
+	// double				wall_h;
+	// double				hcam;
+	// double				angle_haut;
+	// double				angle_bas;
+	// double				step;			// angle entre deux rayons (en degres)
 }						t_param;
 
 typedef	struct			s_res
@@ -103,6 +132,7 @@ t_res					ddax(t_all *a);
 t_res					dday(t_all *a);
 void					calc_dda(t_all *a);
 double					sq(double a);
+double					degre_to_rad(double angle);
 
 
 #endif

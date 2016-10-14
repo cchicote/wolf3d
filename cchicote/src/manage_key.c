@@ -20,6 +20,9 @@ int			manage_key(int keycode, void *a)
 
 void		treat_keycode(int keycode, t_all *a)
 {
+	double	olddirx;
+	double	oldplanex;
+
 	// ft_putnbrendl(keycode);
 	if (keycode == 53 || keycode == 65307)
 	{
@@ -27,29 +30,39 @@ void		treat_keycode(int keycode, t_all *a)
 		ft_putendl("goodbye");
 		exit(0);
 	}
-	if ((keycode == 126 || keycode == 65362) && a->en->map[(int)a->pa->posy - 1][(int)a->pa->posx] == 0)
-		a->pa->posy -= 0.3;
-	else if ((keycode == 125 || keycode == 65364) && a->en->map[(int)a->pa->posy + 1][(int)a->pa->posx] == 0)
-		a->pa->posy += 0.3;
-	else if ((keycode == 124 || keycode == 65363) && a->en->map[(int)a->pa->posy][(int)a->pa->posx + 1] == 0)
-		a->pa->posx += 0.3;
-	else if ((keycode == 123 || keycode == 65361) && a->en->map[(int)a->pa->posy][(int)a->pa->posx - 1] == 0)
-		a->pa->posx -= 0.3;
-	if ((keycode == 0 || keycode == 97) && a->pa->angle < 360)
+	if (keycode == 65362)
 	{
-		if ((int)a->pa->angle == 359)
-			a->pa->angle = 0;
-		else
-			a->pa->angle++;
+		if (a->en->map[(int)(a->pa->posx + a->pa->dirx * 0.25)][(int)a->pa->posy] == 0)
+			a->pa->posx += a->pa->dirx * 0.25;
+		if (a->en->map[(int)a->pa->posx][(int)(a->pa->posy + a->pa->diry * 0.25)] == 0)
+			a->pa->posy += a->pa->diry * 0.25;
 	}
-	else if ((keycode == 2 || keycode == 100) && a->pa->angle >= 0)
+	else if (keycode == 65364)
 	{
-		if ((int)a->pa->angle == 0)
-			a->pa->angle = 359;
-		else
-			a->pa->angle--;
+		if (a->en->map[(int)(a->pa->posx - a->pa->dirx * 0.25)][(int)a->pa->posy] == 0)
+			a->pa->posx -= a->pa->dirx * 0.25;
+		if (a->en->map[(int)a->pa->posx][(int)(a->pa->posy - a->pa->diry * 0.25)] == 0)
+			a->pa->posy -= a->pa->diry * 0.25;
+	}
+	else if (keycode == 65363)
+	{
+		olddirx = a->pa->dirx;
+		a->pa->dirx = a->pa->dirx * cos(-0.05) - a->pa->diry * sin(-0.05);
+		a->pa->diry = olddirx * sin(-0.05) + a->pa->diry * cos(-0.05);
+		oldplanex = a->pa->planex;
+		a->pa->planex = a->pa->planex * cos(-0.05) - a->pa->planey * sin(-0.05);
+		a->pa->planey = oldplanex * sin(-0.05) + a->pa->planey * cos(-0.05);
+	}
+	else if (keycode == 65361)
+	{
+		olddirx = a->pa->dirx;
+		a->pa->dirx = a->pa->dirx * cos(0.05) - a->pa->diry * sin(0.05);
+		a->pa->diry = olddirx * sin(0.05) + a->pa->diry * cos(0.05);
+		oldplanex = a->pa->planex;
+		a->pa->planex = a->pa->planex * cos(0.05) - a->pa->planey * sin(0.05);
+		a->pa->planey = oldplanex * sin(0.05) + a->pa->planey * cos(0.05);
 	}
 	mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
 	calc_dda(a);
-	// display_map(a);
+// 	// display_map(a);
 }

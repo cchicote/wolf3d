@@ -49,13 +49,23 @@ void          env_init(t_env *e)
 
 void          param_init(t_param *p)
 {
-	p->posx = 11;
-	p->posy = 11;
-  p->angle = 60;
-  p->pl_size = (int)SIZE / 2;
-  p->fov = 60;
-  p->dpp = (WINX / 2) / tan((p->fov * (M_PI / 180)) / 2);
-  // printf("%f\n", p->dpp);
+	p->posx = 22;
+	p->posy = 12;
+  p->dirx = -1;
+  p->diry = 0;
+  p->planex = 0;
+  p->planey = 0.66;
+  // p->angle_from_base = 45;
+  // p->alpha_from_base = degre_to_rad(p->angle_from_base);
+  // p->pl_size = (int)SIZE / 2;
+  // p->fov = 60.0;
+  // p->fovrad = degre_to_rad(p->fov);
+  // p->dps = (WINX / 2) / tan(degre_to_rad(p->fov / 2));
+  // p->hcam = SIZE / 2;
+  // p->angle_bas = p->angle_from_base - (p->fov / 2);
+  // p->angle_haut = p->angle_from_base + (p->fov / 2);
+  // p->step = p->fov / WINX;
+  // printf("%f\n", p->step);
 }
 
 void          loading_screen(t_all *a)
@@ -90,7 +100,7 @@ int		       	main(void)
 	a.en = &e;
 	a.pa = &p;
 	// display_map(&a);
-  // loading_screen(&a);
+  // loading_screen(&a);  
   calc_dda(&a);
   mlx_put_image_to_window(e.mlx, e.win, e.img, 0, 0);
 	mlx_hook(e.win, KeyPress, KeyPressMask, manage_key, &a);
