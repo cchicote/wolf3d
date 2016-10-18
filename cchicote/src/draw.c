@@ -74,9 +74,22 @@ int				choose_color(t_all *a)
 void			print_col(t_all *a, int x, int start, int end)
 {
 	// printf("start : %d, end : %d\n", start, end);
+	int i;
+
+	i = 0;
+	while (i < start)
+	{
+		my_pixel_put(a->en, x, i, 0x66CCFF);
+		i++;
+	}
 	while (start < end)
 	{
 		my_pixel_put(a->en, x, start, choose_color(a));
+		start++;
+	}
+	while (start < WINY)
+	{
+		my_pixel_put(a->en, x, start, 0x333333);
 		start++;
 	}
 }

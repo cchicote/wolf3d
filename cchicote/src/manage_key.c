@@ -62,7 +62,7 @@ void		treat_keycode(int keycode, t_all *a)
 		a->pa->planex = a->pa->planex * cos(a->pa->rot_speed) - a->pa->planey * sin(a->pa->rot_speed);
 		a->pa->planey = oldplanex * sin(a->pa->rot_speed) + a->pa->planey * cos(a->pa->rot_speed);
 	}
-	mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
 	calc_dda(a);
+	mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
 // 	// display_map(a);
 }

@@ -54,7 +54,7 @@ void          param_init(t_param *p)
   p->dirx = -1;
   p->diry = 0;
   p->planex = 0;
-  p->planey = 0.66;
+  p->planey = 0.6;
   p->move_speed = 0.25;
   p->rot_speed = 0.05;
   // p->angle_from_base = 45;
