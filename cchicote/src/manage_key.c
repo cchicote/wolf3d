@@ -64,5 +64,4 @@ void		treat_keycode(int keycode, t_all *a)
 	}
 	calc_dda(a);
 	mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
-// 	// display_map(a);
 }

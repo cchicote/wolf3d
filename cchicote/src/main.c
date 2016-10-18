@@ -57,38 +57,6 @@ void          param_init(t_param *p)
   p->planey = 0.6;
   p->move_speed = 0.25;
   p->rot_speed = 0.05;
-  // p->angle_from_base = 45;
-  // p->alpha_from_base = degre_to_rad(p->angle_from_base);
-  // p->pl_size = (int)SIZE / 2;
-  // p->fov = 60.0;
-  // p->fovrad = degre_to_rad(p->fov);
-  // p->dps = (WINX / 2) / tan(degre_to_rad(p->fov / 2));
-  // p->hcam = SIZE / 2;
-  // p->angle_bas = p->angle_from_base - (p->fov / 2);
-  // p->angle_haut = p->angle_from_base + (p->fov / 2);
-  // p->step = p->fov / WINX;
-  // printf("%f\n", p->step);
-}
-
-void          loading_screen(t_all *a)
-{
-  int x;
-  int y;
-
-  y = -1;
-  while (++y < WINY)
-  {
-    x = -1;
-    while (++x < WINX)
-    {
-      if (x % 3 == 0)
-        my_pixel_put(a->en, x, y, 0xff4500);
-      else
-        my_pixel_put(a->en, x, y, 0x663399);
-    }
-  }
-  mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
-  mlx_string_put(a->en->mlx, a->en->win, WINX / 2 - 60, WINY / 2 - 25, 0xffffff, "PRESS ENTER");
 }
 
 int		       	main(void)
@@ -100,9 +68,7 @@ int		       	main(void)
 	env_init(&e);
 	param_init(&p);
 	a.en = &e;
-	a.pa = &p;
-	// display_map(&a);
-  // loading_screen(&a);  
+	a.pa = &p;  
   calc_dda(&a);
   mlx_put_image_to_window(e.mlx, e.win, e.img, 0, 0);
 	mlx_hook(e.win, KeyPress, KeyPressMask, manage_key, &a);

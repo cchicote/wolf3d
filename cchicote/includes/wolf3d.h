@@ -46,8 +46,7 @@ typedef	struct			s_param
 	double				diry;
 	double				planex;
 	double				planey;
-	double				camerax;
-	double				cameray;
+	double				camera;
 	double				rayposx;
 	double				rayposy;
 	double				raydirx;
@@ -68,22 +67,6 @@ typedef	struct			s_param
 	int					drawend;
 	double				move_speed;
 	double				rot_speed;
-	// double				angle_from_base;			// orientation du joueur en degres	
-	// double				alpha_from_base;			// orientation du joueur (de la camera) en radian (c'est l'angle transforme en radian)
-	// double				m;				// slope -> pente
-	// double				b;				// intersection sur l'axe y
-	// double				xcol;
-	// int					xonmap;
-	// int					yonmap;
-	// int					pl_size;
-	// double				fov;			// champ de vision en degres
-	// double				fovrad;			// champ de vision en radian
-	// double				dps;			// distance projection screen
-	// double				wall_h;
-	// double				hcam;
-	// double				angle_haut;
-	// double				angle_bas;
-	// double				step;			// angle entre deux rayons (en degres)
 }						t_param;
 
 typedef	struct			s_res
@@ -108,8 +91,6 @@ typedef	struct			s_all
 int						main(void);
 void					env_init(t_env *e);
 void					param_init(t_param *p);
-void  			        loading_screen(t_all *a);
-
 
 /*
 ** MANAGE_MAP.C
@@ -130,9 +111,23 @@ void					treat_keycode(int keycode, t_all *a);
 */
 
 void					my_pixel_put(t_env *e, int x, int y, int color);
-t_res					ddax(t_all *a);
-t_res					dday(t_all *a);
+int						choose_color(t_all *a);
+void					print_col(t_all *a, int x, int start, int end);
+
+/*
+** RAYCASTING.C
+*/
+
 void					calc_dda(t_all *a);
+void					init_dda(t_all *a, int x);
+void					ray_dda(t_all *a);
+void					perf_dda(t_all *a);
+void					prep_drawing(t_all *a);
+
+/*
+** CALC.C
+*/
+
 double					sq(double a);
 double					degre_to_rad(double angle);
 
