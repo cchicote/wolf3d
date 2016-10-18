@@ -32,16 +32,16 @@ void		treat_keycode(int keycode, t_all *a)
 	}
 	if (keycode == 65362 || keycode == 126)
 	{
-		if (a->en->map[(int)(a->pa->posx + a->pa->dirx * a->pa->move_speed)][(int)a->pa->posy] == 0)
+		if (a->en->map[(int)(a->pa->posx + a->pa->dirx * a->pa->move_speed)][(int)a->pa->posy] == 0 || a->en->map[(int)(a->pa->posx + a->pa->dirx * a->pa->move_speed)][(int)a->pa->posy] == 5)
 			a->pa->posx += a->pa->dirx * a->pa->move_speed;
-		if (a->en->map[(int)a->pa->posx][(int)(a->pa->posy + a->pa->diry * a->pa->move_speed)] == 0)
+		if (a->en->map[(int)a->pa->posx][(int)(a->pa->posy + a->pa->diry * a->pa->move_speed)] == 0 || a->en->map[(int)a->pa->posx][(int)(a->pa->posy + a->pa->diry * a->pa->move_speed)] == 5)
 			a->pa->posy += a->pa->diry * a->pa->move_speed;
 	}
 	else if (keycode == 65364 || keycode == 125)
 	{
-		if (a->en->map[(int)(a->pa->posx - a->pa->dirx * a->pa->move_speed)][(int)a->pa->posy] == 0)
+		if (a->en->map[(int)(a->pa->posx - a->pa->dirx * a->pa->move_speed)][(int)a->pa->posy] == 0 || a->en->map[(int)(a->pa->posx - a->pa->dirx * a->pa->move_speed)][(int)a->pa->posy] == 5)
 			a->pa->posx -= a->pa->dirx * a->pa->move_speed;
-		if (a->en->map[(int)a->pa->posx][(int)(a->pa->posy - a->pa->diry * a->pa->move_speed)] == 0)
+		if (a->en->map[(int)a->pa->posx][(int)(a->pa->posy - a->pa->diry * a->pa->move_speed)] == 0 || a->en->map[(int)a->pa->posx][(int)(a->pa->posy - a->pa->diry * a->pa->move_speed)] == 5)
 			a->pa->posy -= a->pa->diry * a->pa->move_speed;
 	}
 	else if (keycode == 65363 || keycode == 124)
@@ -64,4 +64,12 @@ void		treat_keycode(int keycode, t_all *a)
 	}
 	calc_dda(a);
 	mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
+	if (a->en->map[(int)a->pa->posx][(int)a->pa->posy] == 5)
+	{
+		mlx_string_put(a->en->mlx, a->en->win, 0, 0, 0xffffff, "Felicitations !");
+		// a->en->map[(int)a->pa->posx][(int)a->pa->posy] = 0;
+		// mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
+		// mlx_destroy_window(a->en->mlx, a->en->win);
+		// exit(0);
+	}
 }
