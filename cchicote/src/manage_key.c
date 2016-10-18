@@ -30,37 +30,37 @@ void		treat_keycode(int keycode, t_all *a)
 		ft_putendl("goodbye");
 		exit(0);
 	}
-	if (keycode == 65362)
+	if (keycode == 65362 || keycode == 126)
 	{
-		if (a->en->map[(int)(a->pa->posx + a->pa->dirx * 0.25)][(int)a->pa->posy] == 0)
-			a->pa->posx += a->pa->dirx * 0.25;
-		if (a->en->map[(int)a->pa->posx][(int)(a->pa->posy + a->pa->diry * 0.25)] == 0)
-			a->pa->posy += a->pa->diry * 0.25;
+		if (a->en->map[(int)(a->pa->posx + a->pa->dirx * a->pa->move_speed)][(int)a->pa->posy] == 0)
+			a->pa->posx += a->pa->dirx * a->pa->move_speed;
+		if (a->en->map[(int)a->pa->posx][(int)(a->pa->posy + a->pa->diry * a->pa->move_speed)] == 0)
+			a->pa->posy += a->pa->diry * a->pa->move_speed;
 	}
-	else if (keycode == 65364)
+	else if (keycode == 65364 || keycode == 125)
 	{
-		if (a->en->map[(int)(a->pa->posx - a->pa->dirx * 0.25)][(int)a->pa->posy] == 0)
-			a->pa->posx -= a->pa->dirx * 0.25;
-		if (a->en->map[(int)a->pa->posx][(int)(a->pa->posy - a->pa->diry * 0.25)] == 0)
-			a->pa->posy -= a->pa->diry * 0.25;
+		if (a->en->map[(int)(a->pa->posx - a->pa->dirx * a->pa->move_speed)][(int)a->pa->posy] == 0)
+			a->pa->posx -= a->pa->dirx * a->pa->move_speed;
+		if (a->en->map[(int)a->pa->posx][(int)(a->pa->posy - a->pa->diry * a->pa->move_speed)] == 0)
+			a->pa->posy -= a->pa->diry * a->pa->move_speed;
 	}
-	else if (keycode == 65363)
+	else if (keycode == 65363 || keycode == 124)
 	{
 		olddirx = a->pa->dirx;
-		a->pa->dirx = a->pa->dirx * cos(-0.05) - a->pa->diry * sin(-0.05);
-		a->pa->diry = olddirx * sin(-0.05) + a->pa->diry * cos(-0.05);
+		a->pa->dirx = a->pa->dirx * cos(-a->pa->rot_speed) - a->pa->diry * sin(-a->pa->rot_speed);
+		a->pa->diry = olddirx * sin(-a->pa->rot_speed) + a->pa->diry * cos(-a->pa->rot_speed);
 		oldplanex = a->pa->planex;
-		a->pa->planex = a->pa->planex * cos(-0.05) - a->pa->planey * sin(-0.05);
-		a->pa->planey = oldplanex * sin(-0.05) + a->pa->planey * cos(-0.05);
+		a->pa->planex = a->pa->planex * cos(-a->pa->rot_speed) - a->pa->planey * sin(-a->pa->rot_speed);
+		a->pa->planey = oldplanex * sin(-a->pa->rot_speed) + a->pa->planey * cos(-a->pa->rot_speed);
 	}
-	else if (keycode == 65361)
+	else if (keycode == 65361 || keycode == 123)
 	{
 		olddirx = a->pa->dirx;
-		a->pa->dirx = a->pa->dirx * cos(0.05) - a->pa->diry * sin(0.05);
-		a->pa->diry = olddirx * sin(0.05) + a->pa->diry * cos(0.05);
+		a->pa->dirx = a->pa->dirx * cos(a->pa->rot_speed) - a->pa->diry * sin(a->pa->rot_speed);
+		a->pa->diry = olddirx * sin(a->pa->rot_speed) + a->pa->diry * cos(a->pa->rot_speed);
 		oldplanex = a->pa->planex;
-		a->pa->planex = a->pa->planex * cos(0.05) - a->pa->planey * sin(0.05);
-		a->pa->planey = oldplanex * sin(0.05) + a->pa->planey * cos(0.05);
+		a->pa->planex = a->pa->planex * cos(a->pa->rot_speed) - a->pa->planey * sin(a->pa->rot_speed);
+		a->pa->planey = oldplanex * sin(a->pa->rot_speed) + a->pa->planey * cos(a->pa->rot_speed);
 	}
 	mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
 	calc_dda(a);

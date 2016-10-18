@@ -87,37 +87,39 @@ void			calc_dda(t_all *a)
 
 	x = 0;
 	ft_bzero(a->en->data, a->en->sl * WINY);
+	a->pa->rayposx = a->pa->posx;
+	a->pa->rayposy = a->pa->posy;
 	while (x < (int)WINX)
 	{
-		a->pa->camerax = 2 * x / WINX - 1;
-		a->pa->rayposx = a->pa->posx;
-		a->pa->rayposy = a->pa->posy;
-		a->pa->raydirx = a->pa->dirx + a->pa->planex * a->pa->camerax;
-		a->pa->raydiry = a->pa->diry + a->pa->planey * a->pa->cameray;
 		a->pa->mapx = (int)a->pa->rayposx;
 		a->pa->mapy = (int)a->pa->rayposy;
+		a->pa->camerax = 2 * x / WINX - 1;
+		a->pa->raydirx = a->pa->dirx + a->pa->planex * a->pa->camerax;
+		a->pa->raydiry = a->pa->diry + a->pa->planey * a->pa->camerax;
 		a->pa->deltadistx = sqrt(1 + sq(a->pa->raydiry) / sq(a->pa->raydirx));
 		a->pa->deltadisty = sqrt(1 + sq(a->pa->raydirx) / sq(a->pa->raydiry));
 		a->pa->hit = 0;
+		a->pa->perpwalldist = -1;
+		a->pa->side = -1;
 		if (a->pa->raydirx < 0)
 		{
 			a->pa->stepx = -1;
-			a->pa->sidedistx = (a->pa->rayposx - a->pa->mapx) * a->pa->deltadistx;
+			a->pa->sidedistx = (a->pa->rayposx - a->pa->mapx) * a->pa->deltadistx; // ligne 65 (dans son code)
 		}
 		else
 		{
 			a->pa->stepx = 1;
-			a->pa->sidedistx = (a->pa->mapx + 1.0 - a->pa->rayposx) * a->pa->deltadistx;
+			a->pa->sidedistx = (a->pa->mapx + 1.0 - a->pa->rayposx) * a->pa->deltadistx; // ligne 70
 		}
 		if (a->pa->raydiry < 0)
 		{
 			a->pa->stepy = -1;
-			a->pa->sidedisty = (a->pa->rayposy - a->pa->mapy) * a->pa->deltadisty;
+			a->pa->sidedisty = (a->pa->rayposy - a->pa->mapy) * a->pa->deltadisty; // ligne 75
 		}
 		else
 		{
 			a->pa->stepy = 1;
-			a->pa->sidedisty = (a->pa->mapy + 1.0 - a->pa->rayposy) * a->pa->deltadisty;
+			a->pa->sidedisty = (a->pa->mapy + 1.0 - a->pa->rayposy) * a->pa->deltadisty; // ligne 80
 		}
 		while (a->pa->hit == 0)
 		{
@@ -134,19 +136,21 @@ void			calc_dda(t_all *a)
 				a->pa->side = 1;
 			}
 			if (a->en->map[a->pa->mapx][a->pa->mapy] > 0)
+			{
 				a->pa->hit = 1;
+				if (a->pa->side == 0)
+					a->pa->perpwalldist = (a->pa->mapx - a->pa->rayposx + (1 - a->pa->stepx) / 2) / a->pa->raydirx;
+				else
+					a->pa->perpwalldist = (a->pa->mapy - a->pa->rayposy + (1 - a->pa->stepy) / 2) / a->pa->raydiry;
+			}
 		}
-		if (a->pa->side == 0)
-			a->pa->perpwalldist = (a->pa->mapx - a->pa->rayposx + (1 - a->pa->stepx) / 2) / a->pa->raydirx;
-		else
-			a->pa->perpwalldist = (a->pa->mapy - a->pa->rayposy + (1 - a->pa->stepy) / 2) / a->pa->raydiry;
 		a->pa->lineheight = (int)(WINY / a->pa->perpwalldist);
-		a->pa->drawstart = (int)(-a->pa->lineheight / 2 + WINY / 2);
+		a->pa->drawstart = (-a->pa->lineheight / 2 + WINY / 2);
 		if (a->pa->drawstart < 0)
 			a->pa->drawstart = 0;
-		a->pa->drawend = (int)(a->pa->lineheight / 2 + WINY / 2);
-		if (a->pa->drawend < 0)
-			a->pa->drawend = 0;
+		a->pa->drawend = (a->pa->lineheight / 2 + WINY / 2);
+		if (a->pa->drawend >= WINY)
+			a->pa->drawend = WINY - 1;
 		print_col(a, x, a->pa->drawstart, a->pa->drawend);
 		x++;
 	}

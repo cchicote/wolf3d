@@ -22,8 +22,8 @@
 # include <fcntl.h>
 # define MAPX 24
 # define MAPY 24
-# define WINX 640.0
-# define WINY 380.0
+# define WINX 1280.0
+# define WINY 760.0
 # define SIZE 64.0
 
 typedef struct			s_env
@@ -66,6 +66,8 @@ typedef	struct			s_param
 	int					lineheight;
 	int					drawstart;
 	int					drawend;
+	double				move_speed;
+	double				rot_speed;
 	// double				angle_from_base;			// orientation du joueur en degres	
 	// double				alpha_from_base;			// orientation du joueur (de la camera) en radian (c'est l'angle transforme en radian)
 	// double				m;				// slope -> pente
