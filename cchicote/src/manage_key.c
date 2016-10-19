@@ -67,7 +67,7 @@ void		treat_keycode(int keycode, t_all *a)
 	if (a->en->map[(int)a->pa->posx][(int)a->pa->posy] == 5)
 	{
 		mlx_string_put(a->en->mlx, a->en->win, 0, 0, 0xffffff, "Felicitations !");
-		// a->en->map[(int)a->pa->posx][(int)a->pa->posy] = 0;
+		a->en->map[(int)a->pa->posx][(int)a->pa->posy] = 0;
 		// mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
 		// mlx_destroy_window(a->en->mlx, a->en->win);
 		// exit(0);
