@@ -24,6 +24,8 @@
 # define MAPY 24
 # define WINX 1280.0
 # define WINY 760.0
+# define TEXW 256
+# define TEXH 256
 # define SIZE 64.0
 
 typedef struct			s_env
@@ -37,6 +39,17 @@ typedef struct			s_env
 	int					endian;
 	int					map[MAPY][MAPX];
 }						t_env;
+
+typedef	struct 			s_xpm
+{
+	void				*img;
+	char				*data;
+	int					bpp;
+	int					sl;
+	int					endian;
+	int					width;
+	int					height;
+}						t_xpm;
 
 typedef	struct			s_param
 {
@@ -67,6 +80,10 @@ typedef	struct			s_param
 	int					drawend;
 	double				move_speed;
 	double				rot_speed;
+	double				wallx;
+	int					texx;
+	int					texy;
+	int					texsize;
 }						t_param;
 
 typedef	struct			s_res
@@ -80,6 +97,7 @@ typedef	struct			s_all
 {
 	t_param				*pa;
 	t_env				*en;
+	t_xpm				*xp;
 }						t_all;
 
 
@@ -130,6 +148,6 @@ void					prep_drawing(t_all *a);
 
 double					sq(double a);
 double					degre_to_rad(double angle);
-
+void					calc_walls(t_all *a);
 
 #endif

@@ -17,15 +17,17 @@ void			calc_dda(t_all *a)
 	int		x;
 
 	x = 0;
-	ft_bzero(a->en->data, a->en->sl * WINY);
 	a->pa->rayposx = a->pa->posx;
 	a->pa->rayposy = a->pa->posy;
+	if (a->en->data)
+		ft_bzero(a->en->data, a->en->sl * WINY);
 	while (x < (int)WINX)
 	{
 		init_dda(a, x);
 		ray_dda(a);
 		perf_dda(a);
 		prep_drawing(a);
+		calc_walls(a);
 		print_col(a, x, a->pa->drawstart, a->pa->drawend);
 		x++;
 	}

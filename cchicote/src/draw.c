@@ -30,13 +30,13 @@ int				choose_color(t_all *a)
 	if (a->en->map[a->pa->mapx][a->pa->mapy] == 1)
 	{
 		if (a->pa->side == 1)
-			return (0xffffff / 2);
+			return (0xF8F8FF);
 		return (0xffffff);
 	}
 	else if (a->en->map[a->pa->mapx][a->pa->mapy] == 2)
 	{
 		if (a->pa->side == 1)
-			return (0xff0000 / 2);
+			return (0xB22222);
 		return (0xff0000);
 	}
 	else if (a->en->map[a->pa->mapx][a->pa->mapy] == 3)
@@ -54,12 +54,32 @@ int				choose_color(t_all *a)
 	else if (a->en->map[a->pa->mapx][a->pa->mapy] == 5)
 	{
 		if (a->pa->side == 1)
-			return (0xffff00 / 2);
-		return (0xffff00);
+			return (0x00ff00 / 2);
+		return (0x00ff00);
 	}
+	else if (a->en->map[a->pa->mapx][a->pa->mapy] == 6)
+	{
+		if (a->pa->side == 1)
+			return (0x00ff00 / 2);
+		return (0x00ff00);
+	}
+	else if (a->en->map[a->pa->mapx][a->pa->mapy] == 7)
+		return (0xff00ff);
 	else
 		return (0x000000);
 }
+
+int				choose_texture(t_all *a, int x, int y)
+{
+	int		color;
+
+	color = 0xffffff;
+	x++;
+	y++;
+	a->en->map[0][0] = 1;
+	return (color);
+}
+
 
 void			print_col(t_all *a, int x, int start, int end)
 {
@@ -75,7 +95,8 @@ void			print_col(t_all *a, int x, int start, int end)
 	}
 	while (start < end)
 	{
-		my_pixel_put(a->en, x, start, choose_color(a));
+		a->pa->texy = (start * 2 - WINY + a->pa->lineheight) * (a->pa->texsize / 2) / a->pa->lineheight;
+		my_pixel_put(a->en, x, start, choose_texture(a, x, start));
 		start++;
 	}
 	while (start < WINY)
@@ -83,6 +104,6 @@ void			print_col(t_all *a, int x, int start, int end)
 		my_pixel_put(a->en, x, start, 0x333333);
 		start++;
 	}
-	my_pixel_put(a->en, x, start - 1, 0x000000);
+	my_pixel_put(a->en, x, end, 0x000000);
 	my_pixel_put(a->en, x, j, 0x000000);
 }
