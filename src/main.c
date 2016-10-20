@@ -83,6 +83,7 @@ void          param_init(t_param *p)
   p->planey = 0.66;
   p->move_speed = 0.25;
   p->rot_speed = 0.1;
+  p->straf_speed = 0.125;
   p->texsize = 256;
 }
 

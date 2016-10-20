@@ -80,6 +80,7 @@ typedef	struct			s_param
 	int					drawend;
 	double				move_speed;
 	double				rot_speed;
+	double				straf_speed;
 	double				wallx;
 	int					texx;
 	int					texy;

@@ -45,12 +45,27 @@ void		strafing(t_all *a, int lr)
 {
 	int		next_posx;
 	int		next_posy;
-	// double	tmp_dirx;
-	// double	tmp_diry;
+	double	tmp_dirx;
+	double	tmp_diry;
 
-	lr++;
-	next_posx = a->en->map[(int)(a->pa->posx + (a->pa->dirx * a->pa->move_speed * lr))][(int)a->pa->posy];
-	next_posy = a->en->map[(int)a->pa->posx][(int)(a->pa->posy + (a->pa->diry * a->pa->move_speed * lr))];
+	tmp_dirx = cos(acos(a->pa->dirx) + (M_PI / 2) * lr);
+	tmp_diry = sin(asin(a->pa->diry) + (M_PI / 2) * lr);
+	next_posx = a->en->map[(int)(a->pa->posx + (tmp_dirx * a->pa->move_speed ))][(int)a->pa->posy];
+	next_posy = a->en->map[(int)a->pa->posx][(int)(a->pa->posy + (tmp_diry * a->pa->move_speed ))];
+	if (next_posx == 0 || next_posx == 5 || next_posx == 6 || next_posx == 7)
+	{
+		// if (lr == 1)
+			a->pa->posx += tmp_dirx * a->pa->move_speed;
+		// else if (lr == -1)
+		// 	a->pa->posx -= tmp_dirx * a->pa->move_speed;
+	}
+	if (next_posy == 0 || next_posy == 5 || next_posy == 6 || next_posy == 7)
+	{
+		// if (lr == 1)
+			a->pa->posy += tmp_diry * a->pa->move_speed;
+		// else if (lr == -1)
+			// a->pa->posy -= tmp_diry * a->pa->move_speed;
+	}
 }
 
 
@@ -66,9 +81,9 @@ void		treat_keycode(int keycode, t_all *a)
 		ft_putendl("goodbye");
 		exit(0);
 	}
-	if (keycode == 65362 || keycode == 126)
+	if (keycode == 65362 || keycode == 126 || keycode == 13)
 		moving(a, 1);
-	else if (keycode == 65364 || keycode == 125)
+	else if (keycode == 65364 || keycode == 125 || keycode == 1)
 		moving(a, -1);
 	else if (keycode == 65363 || keycode == 124)
 	{

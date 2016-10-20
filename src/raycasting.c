@@ -23,7 +23,6 @@ void			calc_dda(t_all *a)
 		ft_bzero(a->en->data, a->en->sl * WINY);
 	while (x < (int)WINX)
 	{
-		printf("dirx : %f / diry : %f\n", a->pa->dirx, a->pa->diry);
 		init_dda(a, x);
 		ray_dda(a);
 		perf_dda(a);
