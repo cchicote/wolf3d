@@ -84,10 +84,10 @@ int				choose_texture(t_all *a, int x, int y)
 void			print_col(t_all *a, int x, int start, int end)
 {
 	int i;
-	int	j;
+	// int	j;
 
 	i = 0;
-	j = start;
+	// j = start;
 	while (i < start)
 	{
 		my_pixel_put(a->en, x, i, 0x66CCFF);
@@ -104,6 +104,6 @@ void			print_col(t_all *a, int x, int start, int end)
 		my_pixel_put(a->en, x, start, 0x333333);
 		start++;
 	}
-	my_pixel_put(a->en, x, end, 0x000000);
-	my_pixel_put(a->en, x, j, 0x000000);
+	// my_pixel_put(a->en, x, end, 0x000000);
+	// my_pixel_put(a->en, x, j, 0x000000);
 }

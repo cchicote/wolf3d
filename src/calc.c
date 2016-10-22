@@ -34,5 +34,4 @@ void			calc_walls(t_all *a)
 		a->pa->texx = a->pa->texsize - a->pa->texx - 1;
 	else if (a->pa->side == 1 && a->pa->raydiry < 0)
 		a->pa->texx = a->pa->texsize - a->pa->texx - 1;
-	// printf("%f\n%d\n", a->pa->wallx, a->pa->texx);
 }

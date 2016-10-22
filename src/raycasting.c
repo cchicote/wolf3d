@@ -52,22 +52,26 @@ void			ray_dda(t_all *a)
 	if (a->pa->raydirx < 0)
 	{
 		a->pa->stepx = -1;
-		a->pa->sidedistx = (a->pa->rayposx - a->pa->mapx) * a->pa->deltadistx;
+		a->pa->sidedistx = (a->pa->rayposx - a->pa->mapx)
+			* a->pa->deltadistx;
 	}
 	else
 	{
 		a->pa->stepx = 1;
-		a->pa->sidedistx = (a->pa->mapx + 1.0 - a->pa->rayposx) * a->pa->deltadistx;
+		a->pa->sidedistx = (a->pa->mapx + 1.0 - a->pa->rayposx)
+			* a->pa->deltadistx;
 	}
 	if (a->pa->raydiry < 0)
 	{
 		a->pa->stepy = -1;
-		a->pa->sidedisty = (a->pa->rayposy - a->pa->mapy) * a->pa->deltadisty;
+		a->pa->sidedisty = (a->pa->rayposy - a->pa->mapy)
+			* a->pa->deltadisty;
 	}
 	else
 	{
 		a->pa->stepy = 1;
-		a->pa->sidedisty = (a->pa->mapy + 1.0 - a->pa->rayposy) * a->pa->deltadisty;
+		a->pa->sidedisty = (a->pa->mapy + 1.0 - a->pa->rayposy)
+			* a->pa->deltadisty;
 	}
 }
 
@@ -91,9 +95,11 @@ void			perf_dda(t_all *a)
 		{
 			a->pa->hit = 1;
 			if (a->pa->side == 0)
-				a->pa->perpwalldist = (a->pa->mapx - a->pa->rayposx + (1 - a->pa->stepx) / 2) / a->pa->raydirx;
+				a->pa->perpwalldist = (a->pa->mapx - a->pa->rayposx
+					+ (1 - a->pa->stepx) / 2) / a->pa->raydirx;
 			else
-				a->pa->perpwalldist = (a->pa->mapy - a->pa->rayposy + (1 - a->pa->stepy) / 2) / a->pa->raydiry;
+				a->pa->perpwalldist = (a->pa->mapy - a->pa->rayposy
+					+ (1 - a->pa->stepy) / 2) / a->pa->raydiry;
 		}
 	}
 }
