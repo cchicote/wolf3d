@@ -32,6 +32,7 @@ SRC = main.c \
 		draw.c \
 		raycasting.c \
 		calc.c \
+		movements.c \
 
 SRCO = $(patsubst %.c, %.o,$(addprefix $(PATH_SRC), $(SRC)))
 

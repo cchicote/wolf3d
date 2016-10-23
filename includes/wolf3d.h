@@ -110,6 +110,7 @@ typedef	struct			s_all
 int						main(void);
 void					env_init(t_env *e);
 void					param_init(t_param *p);
+int				        xpm_init(t_xpm *x, t_env *e);
 
 /*
 ** MANAGE_MAP.C
@@ -124,6 +125,7 @@ void					display_map(t_all *a);
 
 int						manage_key(int keycode, void *a);
 void					treat_keycode(int keycode, t_all *a);
+void					check_case(t_all *a, int case_num);
 
 /*
 ** DRAW.C
@@ -150,5 +152,15 @@ void					prep_drawing(t_all *a);
 double					sq(double a);
 double					degre_to_rad(double angle);
 void					calc_walls(t_all *a);
+
+/*
+** MOVEMENTS.C
+*/
+
+void					treat_movements(int keycode, t_all *a);
+void					moving(t_all *a, int fw);
+void					strafing(t_all *a, int lr);
+void					turning_right(t_all *a);
+void					turning_left(t_all *a);
 
 #endif
