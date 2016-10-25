@@ -12,50 +12,43 @@
 
 #include "../includes/wolf3d.h"
 
-// void		display_map(t_all *a)
-// {
-// 	int		x;
-// 	int		y;
+int					check_line(char *line)
+{
+	int i;
 
-// 	y = -1;
-// 	while (++y != MAPY)
-// 	{
-// 		x = -1;
-// 		while (++x != MAPX)
-// 		{
-// 			if (x == a->pa->xonmap && y == a->pa->yonmap)
-// 			{
-// 				ft_putstr("\033[31m");
-// 				ft_putnbr(a->en->map[y][x]);
-// 				ft_putstr("\033[0;0m");
-// 			}
-// 			else if (x == (int)a->pa->posx && y == (int)a->pa->posy)
-// 			{
-// 				ft_putstr("\033[32m");
-// 				ft_putnbr(a->en->map[y][x]);
-// 				ft_putstr("\033[0;0m");
-// 			}
-// 			else if (a->en->map[y][x] == 1)
-// 			{
-// 				// ft_putstr("\033[31m");
-// 				ft_putnbr(a->en->map[y][x]);
-// 				ft_putstr("\033[0;0m");
-// 			}
-// 			else if (a->en->map[y][x] > 1)
-// 			{
-// 				ft_putstr("\033[33m");
-// 				ft_putnbr(a->en->map[y][x]);
-// 				ft_putstr("\033[0;0m");
-// 			}
-// 			else
-// 			{
-// 				ft_putstr("\033[30m");
-// 				ft_putnbr(a->en->map[y][x]);
-// 				ft_putstr("\033[0;0m");
-// 			}
-// 			ft_putstr(" ");
-// 		}
-// 		ft_putchar('\n');
-// 	}
-// 	ft_putchar('\n');
+	i = -1;
+	while (line[++i])
+	{
+		if (ft_isalnum(line[1]) == 0 || line[i] != ',')
+		{
+			ft_putendl("Unknown char in the map file");
+			return (-1);
+		}
+	}
+	return (0);
+}
+
+// int					put_values(t_env *e, char *line, int i)
+// {
+	
 // }
+
+int					get_map(char *argv, t_env *e)
+{
+	int		fd;
+	char	*line;
+	int		i;
+
+	i = 0;
+	fd = open(file, O_RDONLY, S_IREAD);
+	while (get_next_line(fd, &line) > 0)
+	{
+		if (ft_strlen(line) < 1 || ft_strlen(line) > 200)
+			return (-1);
+		if (check_line(line) == -1)
+			return (-1);
+		// if (put_values(e, line, i) == -1)
+		// 	return (-1);
+		i++;
+	}
+}

@@ -107,8 +107,8 @@ typedef	struct			s_all
 ** MAIN.C
 */
 
-int						main(void);
-void					env_init(t_env *e);
+int						main(int argc, char **argv);
+int						env_init(t_env *e, char *argv);
 void					param_init(t_param *p);
 int				        xpm_init(t_xpm *x, t_env *e);
 
