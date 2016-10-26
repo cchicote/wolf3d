@@ -25,6 +25,26 @@ void			my_pixel_put(t_env *e, int x, int y, int color)
 	}
 }
 
+void			load_sky_to_data(t_all *a, int x, int y)
+{
+	if (x < a->sky->width && y < a->sky->height && x > 0 && y > 0)
+	{
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8] = a->sky->data[y * a->sky->sl + x * a->sky->bpp / 8];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 1] = a->sky->data[y * a->sky->sl + x * a->sky->bpp / 8 + 1];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 2] = a->sky->data[y * a->sky->sl + x * a->sky->bpp / 8 + 2];
+	}
+}
+
+void			load_floor_to_data(t_all *a, int x, int y)
+{
+	if (x < a->flo->width && y < a->flo->height && x > 0 && y > 0)
+	{
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8] = a->flo->data[y * a->flo->sl + x * a->flo->bpp / 8];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 1] = a->flo->data[y * a->flo->sl + x * a->flo->bpp / 8 + 1];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 2] = a->flo->data[y * a->flo->sl + x * a->flo->bpp / 8 + 2];
+	}
+}
+
 int				choose_color(t_all *a)
 {
 	if (a->en->map[a->pa->mapx][a->pa->mapy] == 1)
@@ -82,14 +102,12 @@ int				choose_texture(t_all *a, int x, int y)
 
 void			print_col(t_all *a, int x, int start, int end)
 {
-	// int	j;
 	int i;
 
 	i = 0;
-	// j = start;
 	while (i < start)
 	{
-		my_pixel_put(a->en, x, i, 0x66CCFF);
+		load_sky_to_data(a, x, i);
 		i++;
 	}
 	while (start < end)
@@ -101,9 +119,7 @@ void			print_col(t_all *a, int x, int start, int end)
 	}
 	while (start < WINY)
 	{
-		my_pixel_put(a->en, x, start, 0x333333);
+		load_floor_to_data(a, x, start);
 		start++;
 	}
-	// my_pixel_put(a->en, x, end, 0x000000);
-	// my_pixel_put(a->en, x, j, 0x000000);
 }

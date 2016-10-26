@@ -26,6 +26,8 @@
 # define WINY 760.0
 # define TEXW 256
 # define TEXH 256
+# define SKYW 500
+# define SKYH 1000
 # define SIZE 64.0
 
 typedef struct			s_env
@@ -85,6 +87,8 @@ typedef	struct			s_param
 	int					texx;
 	int					texy;
 	int					texsize;
+	int					sky;
+	int					ground;
 }						t_param;
 
 typedef	struct			s_res
@@ -98,7 +102,8 @@ typedef	struct			s_all
 {
 	t_param				*pa;
 	t_env				*en;
-	t_xpm				*xp;
+	t_xpm				*sky;
+	t_xpm				*flo;
 }						t_all;
 
 
@@ -110,7 +115,7 @@ typedef	struct			s_all
 int						main(int argc, char **argv);
 int						env_init(t_env *e, char *argv);
 void					param_init(t_param *p);
-int				        xpm_init(t_xpm *x, t_env *e);
+int				        xpm_init(t_xpm *x, t_env *e, char *path);
 
 /*
 ** MANAGE_MAP.C
@@ -134,6 +139,10 @@ void					check_case(t_all *a, int case_num);
 void					my_pixel_put(t_env *e, int x, int y, int color);
 int						choose_color(t_all *a);
 void					print_col(t_all *a, int x, int start, int end);
+void					load_sky_to_data(t_all *a, int x, int y);
+void					load_floor_to_data(t_all *a, int x, int y);
+
+
 
 /*
 ** RAYCASTING.C

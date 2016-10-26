@@ -27,7 +27,6 @@ LIBFT = -L ./libft/ -lft
 PATH_SRC = src/
 
 SRC = main.c \
-		manage_map.c \
 		manage_key.c \
 		draw.c \
 		raycasting.c \

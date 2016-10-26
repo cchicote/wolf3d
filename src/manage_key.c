@@ -40,6 +40,7 @@ void		check_case(t_all *a, int case_num)
 
 void		treat_keycode(int keycode, t_all *a)
 {
+	// ft_putnbrendl(keycode);
 	if (keycode == 53 || keycode == 65307)
 	{
 		mlx_destroy_window(a->en->mlx, a->en->win);
@@ -51,7 +52,8 @@ void		treat_keycode(int keycode, t_all *a)
 	if (a->en->map[a->pa->mapx][a->pa->mapy] == 3 && (keycode == 101
 		|| keycode == 14))
 		a->en->map[a->pa->mapx][a->pa->mapy] = 0;
+	else if (keycode == 114)
+		ft_swap(&(a->pa->sky), &(a->pa->ground));
 	calc_dda(a);
 	mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
-	// mlx_put_image_to_window(a->en->mlx, a->en->win, a->xp->img, 0, 0);
 }
