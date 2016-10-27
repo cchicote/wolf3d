@@ -53,7 +53,12 @@ void		treat_keycode(int keycode, t_all *a)
 		|| keycode == 14))
 		a->en->map[a->pa->mapx][a->pa->mapy] = 0;
 	else if (keycode == 114)
-		ft_swap(&(a->pa->sky), &(a->pa->ground));
+	{
+		if (a->pa->reverse == 1)
+			a->pa->reverse = 0;
+		else
+			a->pa->reverse = 1;
+	}
 	calc_dda(a);
 	mlx_put_image_to_window(a->en->mlx, a->en->win, a->en->img, 0, 0);
 }

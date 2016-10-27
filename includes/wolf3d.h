@@ -26,8 +26,6 @@
 # define WINY 760.0
 # define TEXW 256
 # define TEXH 256
-# define SKYW 500
-# define SKYH 1000
 # define SIZE 64.0
 
 typedef struct			s_env
@@ -89,6 +87,8 @@ typedef	struct			s_param
 	int					texsize;
 	int					sky;
 	int					ground;
+	int					reverse;
+	double				orientation;
 }						t_param;
 
 typedef	struct			s_res

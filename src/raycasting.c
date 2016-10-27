@@ -19,6 +19,9 @@ void			calc_dda(t_all *a)
 	x = 0;
 	a->pa->rayposx = a->pa->posx;
 	a->pa->rayposy = a->pa->posy;
+	a->pa->orientation = acos(a->pa->dirx) * 360 / M_PI;
+	if (isnan(a->pa->orientation) != 0)
+		a->pa->orientation = 360;
 	if (a->en->data)
 		ft_bzero(a->en->data, a->en->sl * WINY);
 	while (x < (int)WINX)
