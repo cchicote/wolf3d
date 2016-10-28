@@ -10,13 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// e->sky_img[(y + 150) * (int)SKY_W * 4 + (x + (int)(e->angle * (int)SKY_W / 360)) * e->bpp / 8];
-
-
-
-
-
-
 #include "../includes/wolf3d.h"
 
 void			my_pixel_put(t_env *e, int x, int y, int color)
@@ -42,69 +35,14 @@ void			load_sky_to_data(t_all *a, int x, int y)
 	}
 }
 
-void			load_floor_to_data(t_all *a, int x, int y)
+void			load_texel(t_all *a, int x, int y)
 {
-	if (x < a->flo->width && y < a->flo->height && x > 0 && y > 0)
+	if (x < WINX && y < WINY && x > 0 && y > 0)
 	{
-		a->en->data[y * a->en->sl + x * a->en->bpp / 8] = a->flo->data[y * a->flo->sl + (x + (int)(a->pa->orientation * a->flo->sl / 360)) * a->flo->bpp / 8];
-		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 1] = a->flo->data[y * a->flo->sl + (x + (int)(a->pa->orientation * a->flo->sl / 360)) * a->flo->bpp / 8 + 1];
-		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 2] = a->flo->data[y * a->flo->sl + (x + (int)(a->pa->orientation * a->flo->sl / 360)) * a->flo->bpp / 8 + 2];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8] = a->wal->data[a->pa->texy * a->wal->sl + a->pa->texx * a->wal->bpp / 8];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 1] = a->wal->data[a->pa->texy * a->wal->sl + a->pa->texx * a->wal->bpp / 8 + 1];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 2] = a->wal->data[a->pa->texy * a->wal->sl + a->pa->texx * a->wal->bpp / 8 + 2];
 	}
-}
-
-int				choose_color(t_all *a)
-{
-	if (a->en->map[a->pa->mapx][a->pa->mapy] == 1)
-	{
-		if (a->pa->side == 1)
-			return (0xF8F8FF);
-		return (0xffffff);
-	}
-	else if (a->en->map[a->pa->mapx][a->pa->mapy] == 2)
-	{
-		if (a->pa->side == 1)
-			return (0xB22222);
-		return (0xff0000);
-	}
-	else if (a->en->map[a->pa->mapx][a->pa->mapy] == 3)
-	{
-		if (a->pa->side == 1)
-			return (0x663300);
-		return (0x663300);
-	}
-	else if (a->en->map[a->pa->mapx][a->pa->mapy] == 4)
-	{
-		if (a->pa->side == 1)
-			return (0x0000ff / 2);
-		return (0x0000ff);
-	}
-	else if (a->en->map[a->pa->mapx][a->pa->mapy] == 5)
-	{
-		if (a->pa->side == 1)
-			return (0x000000);
-		return (0x000000);
-	}
-	else if (a->en->map[a->pa->mapx][a->pa->mapy] == 6)
-	{
-		if (a->pa->side == 1)
-			return (0x3333CC);
-		return (0x3333CC);
-	}
-	else if (a->en->map[a->pa->mapx][a->pa->mapy] == 7)
-		return (0xFFFF00);
-	else
-		return (0xFFFF00);
-}
-
-int				choose_texture(t_all *a, int x, int y)
-{
-	int		color;
-
-	color = 0xffffff;
-	x++;
-	y++;
-	a->en->map[0][0] = 1;
-	return (color);
 }
 
 void			print_col(t_all *a, int x, int start, int end)
@@ -112,19 +50,18 @@ void			print_col(t_all *a, int x, int start, int end)
 	int i;
 
 	i = 0;
-	while (i < start)
+	while (i++ < start)
 	{
 		if (a->pa->reverse == 1)
-			load_floor_to_data(a, x, i);
+			my_pixel_put(a->en, x, i, a->pa->ground);
 		else if (a->pa->reverse == 0)
 			load_sky_to_data(a, x, i);
-		i++;
 	}
 	while (start < end)
 	{
 		a->pa->texy = (start * 2 - WINY + a->pa->lineheight) *
 		(a->pa->texsize / 2) / a->pa->lineheight;
-		my_pixel_put(a->en, x, start, choose_color(a));
+		load_texel(a, x, start);
 		start++;
 	}
 	while (start < WINY)
@@ -132,7 +69,7 @@ void			print_col(t_all *a, int x, int start, int end)
 		if (a->pa->reverse == 1)
 			load_sky_to_data(a, x, start);
 		else if (a->pa->reverse == 0)
-			load_floor_to_data(a, x, start);
+			my_pixel_put(a->en, x, start, a->pa->ground);
 		start++;
 	}
 }

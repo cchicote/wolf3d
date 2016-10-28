@@ -89,6 +89,7 @@ typedef	struct			s_param
 	int					ground;
 	int					reverse;
 	double				orientation;
+	double				wallxbrut;
 }						t_param;
 
 typedef	struct			s_res
@@ -103,26 +104,17 @@ typedef	struct			s_all
 	t_param				*pa;
 	t_env				*en;
 	t_xpm				*sky;
-	t_xpm				*flo;
+	t_xpm				*wal;
 }						t_all;
-
-
 
 /*
 ** MAIN.C
 */
 
-int						main(int argc, char **argv);
-int						env_init(t_env *e, char *argv);
+int						main(void);
+void					env_init(t_env *e);
 void					param_init(t_param *p);
 int				        xpm_init(t_xpm *x, t_env *e, char *path);
-
-/*
-** MANAGE_MAP.C
-*/
-
-void					display_map(t_all *a);
-
 
 /*
 ** MANAGE_KEY.C

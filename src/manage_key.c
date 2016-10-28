@@ -40,11 +40,9 @@ void		check_case(t_all *a, int case_num)
 
 void		treat_keycode(int keycode, t_all *a)
 {
-	// ft_putnbrendl(keycode);
 	if (keycode == 53 || keycode == 65307)
 	{
 		mlx_destroy_window(a->en->mlx, a->en->win);
-		//ft_putendl("goodbye");
 		exit(0);
 	}
 	treat_movements(keycode, a);
