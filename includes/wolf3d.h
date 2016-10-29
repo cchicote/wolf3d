@@ -27,7 +27,7 @@
 # define SIZE 64.0
 # define WINX 800.0
 # define WINY 600.0
-# define NTEX 8
+# define NTEX 10
 
 typedef struct			s_env
 {
@@ -77,7 +77,6 @@ typedef	struct			s_param
 	double				orientation;
 	double				perpwalldist;
 	int					hit;
-	int					sky;
 	int					mapx;
 	int					mapy;
 	int					texx;
@@ -86,9 +85,9 @@ typedef	struct			s_param
 	int					stepx;
 	int					stepy;
 	int					ground;
-	int					drawend;
 	int					texsize;
 	int					reverse;
+	int					drawend;
 	int					drawstart;
 	int					lineheight;
 }						t_param;

@@ -31,6 +31,8 @@ int           main(void)
   a.te[5] = xpm_init(&t[5], &e, "xpm_files/portal.xpm");
   a.te[6] = xpm_init(&t[6], &e, "xpm_files/portal2.xpm");
   a.te[7] = xpm_init(&t[7], &e, "xpm_files/cobble.xpm");
+  a.te[8] = xpm_init(&t[8], &e, "xpm_files/infos.xpm");
+  a.te[9] = xpm_init(&t[9], &e, "xpm_files/inputs.xpm");
   calc_dda(&a);
   mlx_put_image_to_window(e.mlx, e.win, e.img, 0, 0);
   mlx_hook(e.win, KeyPress, KeyPressMask, manage_key, &a);
@@ -73,10 +75,10 @@ void           env_init(t_env *e)
     {1,0,0,0,0,0,0,7,0,7,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,1},
     {1,1,0,0,0,0,0,0,0,0,0,1},
-    {1,5,0,0,0,0,0,0,0,0,0,1},
-    {1,1,0,0,0,0,0,0,0,0,0,1},
-    {1,6,0,0,0,0,0,0,0,0,0,1},
-    {1,1,0,0,0,0,0,0,0,0,0,1},
+    {1,5,0,0,0,0,0,0,1,1,1,1},
+    {1,1,0,0,0,0,0,0,1,8,9,1},
+    {1,6,0,0,0,0,0,0,1,0,0,1},
+    {1,1,0,0,0,0,0,0,3,0,0,1},
     {1,1,1,1,1,1,1,1,1,1,1,1}};
     
 	e->mlx = mlx_init();
@@ -99,7 +101,6 @@ void          param_init(t_param *p)
   p->rot_speed = 0.05;
   p->straf_speed = 0.125;
   p->texsize = 256;
-  p->sky = 0x66CCFF;
   p->ground = 0x333333;
   p->reverse = 0;
 }
