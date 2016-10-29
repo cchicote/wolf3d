@@ -20,6 +20,7 @@
 # include <math.h>
 # include <stdio.h>
 # include <fcntl.h>
+# define NTEX 10
 # define MAPX 24
 # define MAPY 24
 # define TEXW 256
@@ -27,7 +28,6 @@
 # define SIZE 64.0
 # define WINX 800.0
 # define WINY 600.0
-# define NTEX 10
 
 typedef struct			s_env
 {
