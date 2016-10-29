@@ -25,9 +25,11 @@ double			degre_to_rad(double angle)
 void			calc_walls(t_all *a)
 {
 	if (a->pa->side == 0)
-		a->pa->wallxbrut = a->pa->rayposy + a->pa->perpwalldist * a->pa->raydiry;
+		a->pa->wallxbrut = a->pa->rayposy + a->pa->perpwalldist
+		* a->pa->raydiry;
 	else
-		a->pa->wallxbrut = a->pa->rayposx + a->pa->perpwalldist * a->pa->raydirx;
+		a->pa->wallxbrut = a->pa->rayposx + a->pa->perpwalldist
+		* a->pa->raydirx;
 	a->pa->wallx = a->pa->wallxbrut - (int)a->pa->wallxbrut;
 	a->pa->texx = (int)(a->pa->wallx * a->pa->texsize);
 	if (a->pa->side == 0 && a->pa->raydirx > 0)

@@ -12,6 +12,34 @@
 
 #include "../includes/wolf3d.h"
 
+void			ray_dda(t_all *a)
+{
+	if (a->pa->raydirx < 0)
+	{
+		a->pa->stepx = -1;
+		a->pa->sidedistx = (a->pa->rayposx - a->pa->mapx)
+			* a->pa->deltadistx;
+	}
+	else
+	{
+		a->pa->stepx = 1;
+		a->pa->sidedistx = (a->pa->mapx + 1.0 - a->pa->rayposx)
+			* a->pa->deltadistx;
+	}
+	if (a->pa->raydiry < 0)
+	{
+		a->pa->stepy = -1;
+		a->pa->sidedisty = (a->pa->rayposy - a->pa->mapy)
+			* a->pa->deltadisty;
+	}
+	else
+	{
+		a->pa->stepy = 1;
+		a->pa->sidedisty = (a->pa->mapy + 1.0 - a->pa->rayposy)
+			* a->pa->deltadisty;
+	}
+}
+
 void			calc_dda(t_all *a)
 {
 	int		x;
@@ -48,34 +76,6 @@ void			init_dda(t_all *a, int x)
 	a->pa->hit = 0;
 	a->pa->perpwalldist = -1;
 	a->pa->side = -1;
-}
-
-void			ray_dda(t_all *a)
-{
-	if (a->pa->raydirx < 0)
-	{
-		a->pa->stepx = -1;
-		a->pa->sidedistx = (a->pa->rayposx - a->pa->mapx)
-			* a->pa->deltadistx;
-	}
-	else
-	{
-		a->pa->stepx = 1;
-		a->pa->sidedistx = (a->pa->mapx + 1.0 - a->pa->rayposx)
-			* a->pa->deltadistx;
-	}
-	if (a->pa->raydiry < 0)
-	{
-		a->pa->stepy = -1;
-		a->pa->sidedisty = (a->pa->rayposy - a->pa->mapy)
-			* a->pa->deltadisty;
-	}
-	else
-	{
-		a->pa->stepy = 1;
-		a->pa->sidedisty = (a->pa->mapy + 1.0 - a->pa->rayposy)
-			* a->pa->deltadisty;
-	}
 }
 
 void			perf_dda(t_all *a)
