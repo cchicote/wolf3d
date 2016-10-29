@@ -43,17 +43,17 @@ void			print_col(t_all *a, int x, int start, int end)
 
 void			load_texel(t_all *a, int x, int y)
 {
-	int		num;
+	int		n;
 
-	num = a->en->map[a->pa->mapx][a->pa->mapy];
+	n = a->en->map[a->pa->mapx][a->pa->mapy];
 	if (x < WINX && y < WINY && x > 0 && y > 0)
 	{
-		a->en->data[y * a->en->sl + x * a->en->bpp / 8] = a->te[num]->data
-			[a->pa->texy * a->te[num]->sl + a->pa->texx * a->te[num]->bpp / 8];
-		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 1] = a->te[num]->data
-			[a->pa->texy * a->te[num]->sl + a->pa->texx * a->te[num]->bpp / 8 + 1];
-		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 2] = a->te[num]->data
-			[a->pa->texy * a->te[num]->sl + a->pa->texx * a->te[num]->bpp / 8 + 2];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8] = a->te[n]->data
+			[a->pa->texy * a->te[n]->sl + a->pa->texx * a->te[n]->bpp / 8];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 1] = a->te[n]->data
+			[a->pa->texy * a->te[n]->sl + a->pa->texx * a->te[n]->bpp / 8 + 1];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 2] = a->te[n]->data
+			[a->pa->texy * a->te[n]->sl + a->pa->texx * a->te[n]->bpp / 8 + 2];
 	}
 }
 
