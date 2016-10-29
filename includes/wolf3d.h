@@ -16,17 +16,17 @@
 # include "../libft/includes/libft.h"
 # include "../minilibx_macos/X.h"
 # include "../minilibxLinux/mlx.h"
-# include <stdio.h>
-# include <math.h>
 # include <mlx.h>
+# include <math.h>
+# include <stdio.h>
 # include <fcntl.h>
 # define MAPX 24
 # define MAPY 24
-# define WINX 800.0
-# define WINY 600.0
 # define TEXW 256
 # define TEXH 256
 # define SIZE 64.0
+# define WINX 800.0
+# define WINY 600.0
 
 typedef struct			s_env
 {
