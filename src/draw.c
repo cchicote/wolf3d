@@ -43,14 +43,17 @@ void			print_col(t_all *a, int x, int start, int end)
 
 void			load_texel(t_all *a, int x, int y)
 {
+	int		num;
+
+	num = a->en->map[a->pa->mapx][a->pa->mapy];
 	if (x < WINX && y < WINY && x > 0 && y > 0)
 	{
-		a->en->data[y * a->en->sl + x * a->en->bpp / 8] = a->wal->data
-			[a->pa->texy * a->wal->sl + a->pa->texx * a->wal->bpp / 8];
-		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 1] = a->wal->data
-			[a->pa->texy * a->wal->sl + a->pa->texx * a->wal->bpp / 8 + 1];
-		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 2] = a->wal->data
-			[a->pa->texy * a->wal->sl + a->pa->texx * a->wal->bpp / 8 + 2];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8] = a->te[num]->data
+			[a->pa->texy * a->te[num]->sl + a->pa->texx * a->te[num]->bpp / 8];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 1] = a->te[num]->data
+			[a->pa->texy * a->te[num]->sl + a->pa->texx * a->te[num]->bpp / 8 + 1];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 2] = a->te[num]->data
+			[a->pa->texy * a->te[num]->sl + a->pa->texx * a->te[num]->bpp / 8 + 2];
 	}
 }
 
@@ -69,16 +72,16 @@ void			my_pixel_put(t_env *e, int x, int y, int color)
 
 void			load_sky_to_data(t_all *a, int x, int y)
 {
-	if (x < a->sky->width && y < a->sky->height && x > 0 && y > 0)
+	if (x < a->te[0]->width && y < a->te[0]->height && x > 0 && y > 0)
 	{
-		a->en->data[y * a->en->sl + x * a->en->bpp / 8] = a->sky->data[y
-			* a->sky->sl + (x + (int)(a->pa->orientation * a->sky->sl / 360))
-			* a->sky->bpp / 8];
-		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 1] = a->sky->data[y
-			* a->sky->sl + (x + (int)(a->pa->orientation * a->sky->sl / 360))
-			* a->sky->bpp / 8 + 1];
-		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 2] = a->sky->data[y
-			* a->sky->sl + (x + (int)(a->pa->orientation * a->sky->sl / 360))
-			* a->sky->bpp / 8 + 2];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8] = a->te[0]->data[y
+			* a->te[0]->sl + (x + (int)(a->pa->orientation * a->te[0]->sl / 360))
+			* a->te[0]->bpp / 8];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 1] = a->te[0]->data[y
+			* a->te[0]->sl + (x + (int)(a->pa->orientation * a->te[0]->sl / 360))
+			* a->te[0]->bpp / 8 + 1];
+		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 2] = a->te[0]->data[y
+			* a->te[0]->sl + (x + (int)(a->pa->orientation * a->te[0]->sl / 360))
+			* a->te[0]->bpp / 8 + 2];
 	}
 }

@@ -22,19 +22,13 @@ void		check_case(t_all *a, int case_num)
 {
 	if (case_num == 5)
 	{
-		a->pa->posx = 1.5;
-		a->pa->posy = 1.5;
+		a->pa->posx = 9.5;
+		a->pa->posy = 2.5;
 	}
 	else if (case_num == 6)
 	{
-		a->pa->posx = 8.5;
-		a->pa->posy = 1.5;
-	}
-	else if (case_num == 7)
-	{
-		mlx_string_put(a->en->mlx, a->en->win, 0, 0, 0xffffff, "Congrats !");
-		mlx_destroy_window(a->en->mlx, a->en->win);
-		exit(0);
+		a->pa->posx = 7.5;
+		a->pa->posy = 2.5;
 	}
 }
 

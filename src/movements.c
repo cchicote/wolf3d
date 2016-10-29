@@ -21,14 +21,14 @@ void		moving(t_all *a, int fw)
 		a->pa->move_speed * fw))][(int)a->pa->posy];
 	next_posy = a->en->map[(int)a->pa->posx][(int)(a->pa->posy + (a->pa->diry
 		* a->pa->move_speed * fw))];
-	if (next_posx == 0 || next_posx == 5 || next_posx == 6 || next_posx == 7)
+	if (next_posx == 0 || next_posx == 5 || next_posx == 6)
 	{
 		if (fw == 1)
 			a->pa->posx += a->pa->dirx * a->pa->move_speed;
 		else if (fw == -1)
 			a->pa->posx -= a->pa->dirx * a->pa->move_speed;
 	}
-	if (next_posy == 0 || next_posy == 5 || next_posy == 6 || next_posy == 7)
+	if (next_posy == 0 || next_posy == 5 || next_posy == 6)
 	{
 		if (fw == 1)
 			a->pa->posy += a->pa->diry * a->pa->move_speed;
@@ -46,14 +46,14 @@ void		strafing(t_all *a, int lr)
 		a->pa->move_speed * lr))][(int)a->pa->posy];
 	next_posy = a->en->map[(int)a->pa->posx][(int)(a->pa->posy + (a->pa->planey
 		* a->pa->move_speed * lr))];
-	if (next_posx == 0 || next_posx == 5 || next_posx == 6 || next_posx == 7)
+	if (next_posx == 0 || next_posx == 5 || next_posx == 6)
 	{
 		if (lr == 1)
 			a->pa->posx += a->pa->planex * a->pa->move_speed;
 		else if (lr == -1)
 			a->pa->posx -= a->pa->planex * a->pa->move_speed;
 	}
-	if (next_posy == 0 || next_posy == 5 || next_posy == 6 || next_posy == 7)
+	if (next_posy == 0 || next_posy == 5 || next_posy == 6)
 	{
 		if (lr == 1)
 			a->pa->posy += a->pa->planey * a->pa->move_speed;

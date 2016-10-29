@@ -27,6 +27,7 @@
 # define SIZE 64.0
 # define WINX 800.0
 # define WINY 600.0
+# define NTEX 8
 
 typedef struct			s_env
 {
@@ -103,8 +104,7 @@ typedef	struct			s_all
 {
 	t_param				*pa;
 	t_env				*en;
-	t_xpm				*sky;
-	t_xpm				*wal;
+	t_xpm				*te[NTEX];
 }						t_all;
 
 /*
@@ -113,7 +113,7 @@ typedef	struct			s_all
 
 int						main(void);
 int          			destroy(int key, void *e);
-int				        xpm_init(t_xpm *x, t_env *e, char *path);
+t_xpm					*xpm_init(t_xpm *x, t_env *e, char *path);
 void					env_init(t_env *e);
 void					param_init(t_param *p);
 
