@@ -26,8 +26,8 @@
 # define TEXW 256
 # define TEXH 256
 # define SIZE 64.0
-# define WINX 800.0
-# define WINY 600.0
+# define WINX 1024.0
+# define WINY 760.0
 
 typedef struct			s_env
 {
@@ -66,10 +66,10 @@ typedef	struct			s_param
 	double				rayposy;
 	double				raydirx;
 	double				raydiry;
-	double				rot_speed;
 	double				sidedistx;
 	double				sidedisty;
 	double				wallxbrut;
+	double				rot_speed;
 	double				move_speed;
 	double				deltadistx;
 	double				deltadisty;

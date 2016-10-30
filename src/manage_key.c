@@ -14,6 +14,7 @@
 
 int			manage_key(int keycode, void *a)
 {
+	// ft_putnbrendl(keycode);
 	treat_keycode(keycode, a);
 	return (0);
 }
@@ -32,6 +33,18 @@ void		check_case(t_all *a, int case_num)
 	}
 }
 
+void		change_speed(int keycode, t_all *a)
+{
+	if (keycode == 49 && a->pa->rot_speed < 0.5)
+		a->pa->rot_speed += 0.01;
+	else if (keycode == 50 && a->pa->rot_speed > 0.01)
+		a->pa->rot_speed -= 0.01;
+	else if (keycode == 51 && a->pa->move_speed < 0.5)
+		a->pa->move_speed += 0.01;
+	else if (keycode == 52 && a->pa->move_speed > 0.01)
+		a->pa->move_speed -= 0.01;
+}
+
 void		treat_keycode(int keycode, t_all *a)
 {
 	if (keycode == 53 || keycode == 65307)
@@ -40,6 +53,7 @@ void		treat_keycode(int keycode, t_all *a)
 		exit(0);
 	}
 	treat_movements(keycode, a);
+	change_speed(keycode, a);
 	check_case(a, a->en->map[(int)a->pa->posx][(int)a->pa->posy]);
 	if (a->en->map[a->pa->mapx][a->pa->mapy] == 3 && (keycode == 101
 		|| keycode == 14))

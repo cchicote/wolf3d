@@ -92,7 +92,7 @@ void           env_init(t_env *e)
 void          param_init(t_param *p)
 {
 	p->posx = 10.5;
-	p->posy = 10.5;
+	p->posy = 10;
   p->dirx = -1;
   p->diry = 0;
   p->planex = 0;
