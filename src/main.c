@@ -12,12 +12,12 @@
 
 #include "../includes/wolf3d.h"
 
-int           main(void)
+int             main(void)
 {
-  t_env     e;
-  t_param   p;
-  t_all     a;
-  t_xpm     t[NTEX];
+  t_env         e;
+  t_param       p;
+  t_all         a;
+  t_xpm         t[NTEX];
 
   env_init(&e);
   param_init(&p);

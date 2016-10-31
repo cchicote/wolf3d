@@ -26,8 +26,8 @@
 # define TEXW 256
 # define TEXH 256
 # define SIZE 64.0
-# define WINX 1024.0
-# define WINY 760.0
+# define WINX 1000.0
+# define WINY 600.0
 
 typedef struct			s_env
 {
@@ -41,7 +41,7 @@ typedef struct			s_env
 	int					map[MAPY][MAPX];
 }						t_env;
 
-typedef	struct 			s_xpm
+typedef	struct			s_xpm
 {
 	void				*img;
 	char				*data;
@@ -111,7 +111,7 @@ typedef	struct			s_all
 */
 
 int						main(void);
-int          			destroy(int key, void *e);
+int						destroy(int key, void *e);
 t_xpm					*xpm_init(t_xpm *x, t_env *e, char *path);
 void					env_init(t_env *e);
 void					param_init(t_param *p);

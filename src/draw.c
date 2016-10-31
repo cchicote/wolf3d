@@ -75,13 +75,13 @@ void			load_sky_to_data(t_all *a, int x, int y)
 	if (x < a->te[0]->width && y < a->te[0]->height && x > 0 && y > 0)
 	{
 		a->en->data[y * a->en->sl + x * a->en->bpp / 8] = a->te[0]->data[y
-			* a->te[0]->sl + (x + (int)(a->pa->orientation * a->te[0]->sl / 360))
-			* a->te[0]->bpp / 8];
+			* a->te[0]->sl + (x + (int)(a->pa->orientation
+			* a->te[0]->sl / 360)) * a->te[0]->bpp / 8];
 		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 1] = a->te[0]->data[y
-			* a->te[0]->sl + (x + (int)(a->pa->orientation * a->te[0]->sl / 360))
-			* a->te[0]->bpp / 8 + 1];
+			* a->te[0]->sl + (x + (int)(a->pa->orientation
+			* a->te[0]->sl / 360)) * a->te[0]->bpp / 8 + 1];
 		a->en->data[y * a->en->sl + x * a->en->bpp / 8 + 2] = a->te[0]->data[y
-			* a->te[0]->sl + (x + (int)(a->pa->orientation * a->te[0]->sl / 360))
-			* a->te[0]->bpp / 8 + 2];
+			* a->te[0]->sl + (x + (int)(a->pa->orientation
+			* a->te[0]->sl / 360)) * a->te[0]->bpp / 8 + 2];
 	}
 }
